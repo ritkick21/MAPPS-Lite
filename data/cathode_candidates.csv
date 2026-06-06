@@ -1,0 +1,6 @@
+material_id,formula,energy_above_hull,voltage,capacity,cost_score,supply_risk
+mp-1,LiFePO4,0.02,3.4,170,0.90,0.20
+mp-2,LiCoO2,0.01,3.9,140,0.40,0.80
+mp-3,LiMn2O4,0.03,4.0,120,0.80,0.30
+mp-4,LiNiO2,0.04,3.8,180,0.50,0.70
+mp-5,LiTiS2,0.08,2.2,240,0.70,0.40
