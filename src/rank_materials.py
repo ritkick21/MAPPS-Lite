@@ -1,149 +1,416 @@
+"""
+MAPPS-Lite Material Ranking
+
+Loads the cleaned cathode-candidate dataset, calculates
+normalized thermodynamic scores, applies the configured
+ranking weights, ranks every material, and saves the
+resulting dataset.
+"""
+
 from pathlib import Path
 
 import pandas as pd
 
+try:
+    from config import (
+        HULL_WEIGHT,
+        FORMATION_ENERGY_WEIGHT,
+        STABILITY_WEIGHT,
+        validate_ranking_weights,
+    )
+except ImportError:
+    from .config import (
+        HULL_WEIGHT,
+        FORMATION_ENERGY_WEIGHT,
+        STABILITY_WEIGHT,
+        validate_ranking_weights,
+    )
 
-# Input and output file locations
-INPUT_PATH = Path("data/materials.csv")
-OUTPUT_PATH = Path("data/ranked_materials.csv")
 
+# ---------------------------------------------------------
+# Project paths
+# ---------------------------------------------------------
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
+INPUT_PATH = (
+    PROJECT_ROOT
+    / "data"
+    / "materials.csv"
+)
+
+OUTPUT_PATH = (
+    PROJECT_ROOT
+    / "data"
+    / "ranked_materials.csv"
+)
+
+
+# ---------------------------------------------------------
+# Required dataset columns
+# ---------------------------------------------------------
+
+REQUIRED_COLUMNS = {
+    "material_id",
+    "formula",
+    "energy_above_hull",
+    "formation_energy_per_atom",
+    "is_stable",
+}
+
+
+# ---------------------------------------------------------
+# Load dataset
+# ---------------------------------------------------------
 
 def load_materials():
     """
-    Load the filtered Materials Project candidate dataset.
+    Load the cleaned material candidates created by
+    materials_search.py.
+
+    Returns:
+        pandas.DataFrame:
+            Cleaned material-candidate dataset.
+
+    Raises:
+        FileNotFoundError:
+            If data/materials.csv does not exist.
+
+        ValueError:
+            If required columns are missing.
     """
 
     if not INPUT_PATH.exists():
+
         raise FileNotFoundError(
-            f"Could not find {INPUT_PATH}. "
-            "Run src/materials_search.py first."
+            "Could not find the material candidate file:\n"
+            f"{INPUT_PATH}\n\n"
+            "Run one of these commands first:\n"
+            "python src/materials_search.py\n"
+            "python src/main.py"
         )
 
-    df = pd.read_csv(INPUT_PATH)
+    materials_df = pd.read_csv(
+        INPUT_PATH
+    )
 
-    return df
+    missing_columns = (
+        REQUIRED_COLUMNS
+        - set(materials_df.columns)
+    )
+
+    if missing_columns:
+
+        missing_text = ", ".join(
+            sorted(missing_columns)
+        )
+
+        raise ValueError(
+            "Cannot rank materials because required "
+            f"column(s) are missing: {missing_text}"
+        )
+
+    if materials_df.empty:
+
+        raise ValueError(
+            "The material candidate dataset is empty."
+        )
+
+    return materials_df
 
 
-def normalize_lower_is_better(series):
+# ---------------------------------------------------------
+# Numeric validation
+# ---------------------------------------------------------
+
+def prepare_numeric_columns(
+    materials_df
+):
     """
-    Normalize a numerical column to values between 0 and 1.
+    Convert ranking properties to numeric values and remove
+    rows that cannot be scored.
 
-    Lower original values receive higher normalized scores.
+    Args:
+        materials_df:
+            Candidate material dataset.
 
-    Example:
-        Lowest energy above hull -> score near 1
-        Highest energy above hull -> score near 0
+    Returns:
+        pandas.DataFrame:
+            Dataset containing valid numeric ranking data.
+    """
+
+    prepared_df = materials_df.copy()
+
+    numeric_columns = [
+        "energy_above_hull",
+        "formation_energy_per_atom",
+    ]
+
+    for column in numeric_columns:
+
+        prepared_df[column] = pd.to_numeric(
+            prepared_df[column],
+            errors="coerce",
+        )
+
+    prepared_df = prepared_df.dropna(
+        subset=numeric_columns
+    )
+
+    prepared_df = prepared_df.reset_index(
+        drop=True
+    )
+
+    if prepared_df.empty:
+
+        raise ValueError(
+            "No materials contain valid numeric values "
+            "for the ranking properties."
+        )
+
+    return prepared_df
+
+
+# ---------------------------------------------------------
+# Normalization
+# ---------------------------------------------------------
+
+def normalize_lower_is_better(
+    series
+):
+    """
+    Normalize a numeric pandas Series to a score from
+    0 to 1, where lower original values receive higher
+    normalized scores.
+
+    Best original value:
+        1.0
+
+    Worst original value:
+        0.0
+
+    Args:
+        series:
+            Numeric pandas Series.
+
+    Returns:
+        pandas.Series:
+            Normalized values aligned to the original
+            Series index.
     """
 
     minimum = series.min()
     maximum = series.max()
 
-    # Avoid division by zero if every value is identical
     if maximum == minimum:
+
         return pd.Series(
             1.0,
             index=series.index,
+            dtype=float,
         )
 
-    return (maximum - series) / (maximum - minimum)
+    normalized_series = (
+        maximum - series
+    ) / (
+        maximum - minimum
+    )
+
+    return normalized_series
 
 
-def calculate_scores(df):
+# ---------------------------------------------------------
+# Stability conversion
+# ---------------------------------------------------------
+
+def convert_stability_to_score(
+    series
+):
     """
-    Calculate preliminary screening scores for each material.
+    Convert Materials Project stability values into
+    numeric scores.
 
-    The current ranking emphasizes:
+    Stable:
+        1.0
 
-    1. Low energy above hull
-       Materials closer to the thermodynamic stability hull
-       receive higher scores.
+    Not stable or unrecognized:
+        0.0
 
-    2. More negative formation energy per atom
-       More negative values receive higher scores in this
-       preliminary screening model.
+    This supports both Boolean values and strings read
+    from CSV files.
 
-    3. Materials Project stability classification
-       Materials marked as stable receive a small bonus.
+    Args:
+        series:
+            Stability column.
 
-    This is a screening heuristic, not a direct prediction
-    of battery performance.
-    """
-
-    df = df.copy()
-
-    # ---------------------------------------------------------
-    # Stability score based on energy above hull
-    # Lower energy_above_hull is better
-    # ---------------------------------------------------------
-
-    df["hull_score"] = normalize_lower_is_better(
-        df["energy_above_hull"]
-    )
-
-    # ---------------------------------------------------------
-    # Formation energy score
-    # More negative formation energy receives a higher score
-    # ---------------------------------------------------------
-
-    df["formation_score"] = normalize_lower_is_better(
-        df["formation_energy_per_atom"]
-    )
-
-    # ---------------------------------------------------------
-    # Stable material bonus
-    # True = 1
-    # False = 0
-    # ---------------------------------------------------------
-
-    df["stable_score"] = (
-        df["is_stable"]
-        .astype(bool)
-        .astype(int)
-    )
-
-    # ---------------------------------------------------------
-    # Weighted overall screening score
-    #
-    # 55% energy above hull
-    # 35% formation energy
-    # 10% Materials Project stability classification
-    # ---------------------------------------------------------
-
-    df["overall_score"] = (
-        0.55 * df["hull_score"]
-        + 0.35 * df["formation_score"]
-        + 0.10 * df["stable_score"]
-    )
-
-    return df
-
-
-def rank_materials(df):
-    """
-    Sort materials from highest overall screening score
-    to lowest and assign each material a rank.
+    Returns:
+        pandas.Series:
+            Numeric stability scores.
     """
 
-    df = df.sort_values(
-        by="overall_score",
-        ascending=False,
+    normalized_values = (
+        series
+        .astype(str)
+        .str.strip()
+        .str.lower()
     )
 
-    df = df.reset_index(drop=True)
+    stability_scores = (
+        normalized_values
+        .map(
+            {
+                "true": 1.0,
+                "false": 0.0,
+            }
+        )
+        .fillna(0.0)
+    )
 
-    # Rank starts at 1 instead of 0
-    df.insert(
+    return stability_scores
+
+
+# ---------------------------------------------------------
+# Scoring
+# ---------------------------------------------------------
+
+def calculate_scores(
+    materials_df
+):
+    """
+    Calculate the MAPPS-Lite component scores and final
+    weighted ranking score.
+
+    The ranking weights are imported from config.py.
+
+    Args:
+        materials_df:
+            Validated candidate material dataset.
+
+    Returns:
+        pandas.DataFrame:
+            Dataset with component and final scores.
+    """
+
+    validate_ranking_weights()
+
+    scored_df = materials_df.copy()
+
+    scored_df["hull_score"] = (
+        normalize_lower_is_better(
+            scored_df[
+                "energy_above_hull"
+            ]
+        )
+    )
+
+    scored_df["formation_score"] = (
+        normalize_lower_is_better(
+            scored_df[
+                "formation_energy_per_atom"
+            ]
+        )
+    )
+
+    scored_df["stability_score"] = (
+        convert_stability_to_score(
+            scored_df[
+                "is_stable"
+            ]
+        )
+    )
+
+    scored_df["score"] = (
+        HULL_WEIGHT
+        * scored_df[
+            "hull_score"
+        ]
+
+        + FORMATION_ENERGY_WEIGHT
+        * scored_df[
+            "formation_score"
+        ]
+
+        + STABILITY_WEIGHT
+        * scored_df[
+            "stability_score"
+        ]
+    )
+
+    return scored_df
+
+
+# ---------------------------------------------------------
+# Ranking
+# ---------------------------------------------------------
+
+def rank_materials(
+    scored_df
+):
+    """
+    Sort materials from highest to lowest MAPPS-Lite
+    score and assign sequential rank numbers.
+
+    Args:
+        scored_df:
+            Material dataset containing the score column.
+
+    Returns:
+        pandas.DataFrame:
+            Ranked material dataset.
+    """
+
+    if "score" not in scored_df.columns:
+
+        raise ValueError(
+            "Cannot rank materials because the "
+            "'score' column is missing."
+        )
+
+    ranked_df = (
+        scored_df
+        .sort_values(
+            by=[
+                "score",
+                "energy_above_hull",
+                "formation_energy_per_atom",
+            ],
+            ascending=[
+                False,
+                True,
+                True,
+            ],
+        )
+        .reset_index(
+            drop=True
+        )
+    )
+
+    ranked_df.insert(
         0,
         "rank",
-        range(1, len(df) + 1),
+        ranked_df.index + 1,
     )
 
-    return df
+    return ranked_df
 
 
-def save_ranked_materials(df):
+# ---------------------------------------------------------
+# Save results
+# ---------------------------------------------------------
+
+def save_ranked_materials(
+    ranked_df
+):
     """
-    Save the ranked material dataset.
+    Save the ranked candidate dataset.
+
+    Args:
+        ranked_df:
+            Ranked material dataset.
+
+    Returns:
+        pandas.DataFrame:
+            The same dataset after it has been saved.
     """
 
     OUTPUT_PATH.parent.mkdir(
@@ -151,74 +418,192 @@ def save_ranked_materials(df):
         exist_ok=True,
     )
 
-    df.to_csv(
+    ranked_df.to_csv(
         OUTPUT_PATH,
         index=False,
     )
 
+    return ranked_df
 
-def display_top_materials(df, number=20):
+
+# ---------------------------------------------------------
+# Display top candidates
+# ---------------------------------------------------------
+
+def print_top_materials(
+    ranked_df,
+    count=20,
+):
     """
-    Display the highest-ranked materials in the terminal.
+    Print the highest-ranked candidates to the terminal.
+
+    Args:
+        ranked_df:
+            Ranked material dataset.
+
+        count:
+            Maximum number of candidates to display.
     """
 
-    columns_to_display = [
+    display_columns = [
         "rank",
         "material_id",
         "formula",
-        "elements",
         "energy_above_hull",
         "formation_energy_per_atom",
         "is_stable",
-        "overall_score",
+        "score",
     ]
 
+    available_columns = [
+        column
+        for column in display_columns
+        if column in ranked_df.columns
+    ]
+
+    display_count = min(
+        count,
+        len(ranked_df),
+    )
+
     print()
-    print(f"Top {number} ranked cathode candidates:")
+    print(
+        f"Top {display_count} materials:"
+    )
     print()
 
     print(
-        df[
-            columns_to_display
-        ].head(number).to_string(index=False)
+        ranked_df[
+            available_columns
+        ]
+        .head(display_count)
+        .to_string(
+            index=False
+        )
     )
 
+
+# ---------------------------------------------------------
+# Ranking model display
+# ---------------------------------------------------------
+
+def print_ranking_model():
+    """
+    Print the active ranking weights.
+    """
+
+    print("Active ranking model:")
+
+    print(
+        "  Energy above hull: "
+        f"{HULL_WEIGHT * 100:.0f}%"
+    )
+
+    print(
+        "  Formation energy per atom: "
+        f"{FORMATION_ENERGY_WEIGHT * 100:.0f}%"
+    )
+
+    print(
+        "  Materials Project stability flag: "
+        f"{STABILITY_WEIGHT * 100:.0f}%"
+    )
+
+    print()
+
+
+# ---------------------------------------------------------
+# Ranking pipeline
+# ---------------------------------------------------------
+
+def run_ranking_pipeline():
+    """
+    Run the complete MAPPS-Lite ranking pipeline.
+
+    Workflow:
+
+    1. Load data/materials.csv.
+    2. Validate and prepare the ranking properties.
+    3. Normalize thermodynamic properties.
+    4. Calculate the configured weighted score.
+    5. Sort candidates and assign ranks.
+    6. Save data/ranked_materials.csv.
+
+    Returns:
+        pandas.DataFrame:
+            Complete ranked material dataset.
+    """
+
+    print(
+        "Loading material candidates..."
+    )
+
+    materials_df = load_materials()
+
+    print(
+        f"Loaded {len(materials_df)} materials."
+    )
+
+    prepared_df = prepare_numeric_columns(
+        materials_df
+    )
+
+    removed_count = (
+        len(materials_df)
+        - len(prepared_df)
+    )
+
+    if removed_count > 0:
+
+        print(
+            f"Removed {removed_count} materials with "
+            "invalid ranking values."
+        )
+
+    print_ranking_model()
+
+    print(
+        "Calculating ranking scores..."
+    )
+
+    scored_df = calculate_scores(
+        prepared_df
+    )
+
+    ranked_df = rank_materials(
+        scored_df
+    )
+
+    save_ranked_materials(
+        ranked_df
+    )
+
+    print(
+        f"Saved {len(ranked_df)} ranked materials to:"
+    )
+
+    print(
+        OUTPUT_PATH
+    )
+
+    print_top_materials(
+        ranked_df,
+        count=20,
+    )
+
+    return ranked_df
+
+
+# ---------------------------------------------------------
+# Standalone execution
+# ---------------------------------------------------------
 
 def main():
     """
-    Run the complete material ranking pipeline.
+    Run the ranking stage independently.
     """
 
-    print("Loading filtered materials...")
-
-    df = load_materials()
-
-    print(
-        f"Loaded {len(df)} candidate materials."
-    )
-
-    print("Calculating screening scores...")
-
-    df = calculate_scores(df)
-
-    print("Ranking materials...")
-
-    df = rank_materials(df)
-
-    print(
-        f"Ranked {len(df)} materials."
-    )
-
-    save_ranked_materials(df)
-
-    print(
-        f"Saved ranked materials to {OUTPUT_PATH}"
-    )
-
-    display_top_materials(
-        df,
-        number=20,
-    )
+    run_ranking_pipeline()
 
 
 if __name__ == "__main__":

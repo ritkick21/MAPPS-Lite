@@ -1,45 +1,77 @@
+"""
+MAPPS-Lite Material Analysis
+
+Loads ranked materials, performs chemistry screening,
+assigns MAPPS-Lite candidate statuses, saves the screened
+dataset, and generates the final Markdown report.
+
+Scientific settings are imported from config.py so the
+analysis stage stays synchronized with the rest of the
+pipeline.
+"""
+
 from pathlib import Path
 import re
 
 import pandas as pd
 
+try:
+    from config import (
+        BATTERY_RELEVANT_METALS,
+        FLAGGED_ELEMENTS,
+        STATUS_PROMISING,
+        STATUS_POSSIBLE,
+        STATUS_REVIEW,
+        TOP_CANDIDATE_COUNT,
+        get_ranking_model_summary,
+    )
+except ImportError:
+    from .config import (
+        BATTERY_RELEVANT_METALS,
+        FLAGGED_ELEMENTS,
+        STATUS_PROMISING,
+        STATUS_POSSIBLE,
+        STATUS_REVIEW,
+        TOP_CANDIDATE_COUNT,
+        get_ranking_model_summary,
+    )
+
 
 # ---------------------------------------------------------
-# File paths
+# Project paths
 # ---------------------------------------------------------
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
-INPUT_FILE = PROJECT_ROOT / "data" / "ranked_materials.csv"
+INPUT_FILE = (
+    PROJECT_ROOT
+    / "data"
+    / "ranked_materials.csv"
+)
 
 SCREENED_OUTPUT_FILE = (
-    PROJECT_ROOT / "data" / "screened_materials.csv"
+    PROJECT_ROOT
+    / "data"
+    / "screened_materials.csv"
 )
 
 REPORT_OUTPUT_FILE = (
-    PROJECT_ROOT / "reports" / "top_materials_report.md"
+    PROJECT_ROOT
+    / "reports"
+    / "top_materials_report.md"
 )
 
 
 # ---------------------------------------------------------
-# Chemistry screening settings
+# Required dataset columns
 # ---------------------------------------------------------
 
-BATTERY_RELEVANT_METALS = {
-    "Ti",
-    "V",
-    "Cr",
-    "Mn",
-    "Fe",
-    "Co",
-    "Ni",
-}
-
-FLAGGED_ELEMENTS = {
-    "Pb": "contains lead",
-    "Hg": "contains mercury",
-    "Cd": "contains cadmium",
-    "U": "contains uranium",
+REQUIRED_COLUMNS = {
+    "material_id",
+    "formula",
+    "energy_above_hull",
+    "formation_energy_per_atom",
+    "is_stable",
 }
 
 
@@ -48,16 +80,60 @@ FLAGGED_ELEMENTS = {
 # ---------------------------------------------------------
 
 def load_ranked_materials():
-    """Load the ranked materials CSV file."""
+    """
+    Load the ranked materials dataset.
+
+    Returns:
+        pandas.DataFrame:
+            Ranked material dataset.
+
+    Raises:
+        FileNotFoundError:
+            If ranked_materials.csv does not exist.
+
+        ValueError:
+            If required columns are missing.
+    """
 
     if not INPUT_FILE.exists():
+
         raise FileNotFoundError(
-            f"Could not find ranked materials file: {INPUT_FILE}"
+            "Could not find ranked materials file:\n"
+            f"{INPUT_FILE}\n\n"
+            "Run one of these commands first:\n"
+            "python src/rank_materials.py\n"
+            "python src/main.py --skip-search"
         )
 
-    materials = pd.read_csv(INPUT_FILE)
+    materials = pd.read_csv(
+        INPUT_FILE
+    )
 
-    print(f"Loaded {len(materials)} ranked materials.")
+    missing_columns = (
+        REQUIRED_COLUMNS
+        - set(materials.columns)
+    )
+
+    if missing_columns:
+
+        missing_text = ", ".join(
+            sorted(missing_columns)
+        )
+
+        raise ValueError(
+            "Cannot analyze materials because required "
+            f"column(s) are missing: {missing_text}"
+        )
+
+    if materials.empty:
+
+        raise ValueError(
+            "The ranked materials dataset is empty."
+        )
+
+    print(
+        f"Loaded {len(materials)} ranked materials."
+    )
 
     return materials
 
@@ -66,9 +142,11 @@ def load_ranked_materials():
 # Extract elements from formula
 # ---------------------------------------------------------
 
-def extract_elements(formula):
+def extract_elements(
+    formula
+):
     """
-    Extract element symbols from a chemical formula.
+    Extract chemical element symbols from a formula.
 
     Example:
         Li2Ti3MnO8
@@ -79,23 +157,41 @@ def extract_elements(formula):
 
     elements = re.findall(
         r"[A-Z][a-z]?",
-        str(formula)
+        str(formula),
     )
 
-    return set(elements)
+    return set(
+        elements
+    )
 
 
 # ---------------------------------------------------------
 # Analyze material composition
 # ---------------------------------------------------------
 
-def analyze_composition(formula):
-    """Analyze the chemical composition of a material."""
+def analyze_composition(
+    formula
+):
+    """
+    Analyze the chemical composition of a material.
 
-    elements = extract_elements(formula)
+    Returns:
+        dict:
+            Composition information used by the
+            MAPPS-Lite screening stage.
+    """
 
-    contains_lithium = "Li" in elements
-    contains_oxygen = "O" in elements
+    elements = extract_elements(
+        formula
+    )
+
+    contains_lithium = (
+        "Li" in elements
+    )
+
+    contains_oxygen = (
+        "O" in elements
+    )
 
     relevant_metals = sorted(
         elements.intersection(
@@ -110,20 +206,99 @@ def analyze_composition(formula):
     )
 
     return {
-        "elements": elements,
-        "contains_lithium": contains_lithium,
-        "contains_oxygen": contains_oxygen,
-        "relevant_metals": relevant_metals,
-        "flagged_elements": flagged_elements,
+        "elements":
+            elements,
+
+        "contains_lithium":
+            contains_lithium,
+
+        "contains_oxygen":
+            contains_oxygen,
+
+        "relevant_metals":
+            relevant_metals,
+
+        "flagged_elements":
+            flagged_elements,
     }
+
+
+# ---------------------------------------------------------
+# Stability conversion
+# ---------------------------------------------------------
+
+def is_material_stable(
+    value
+):
+    """
+    Convert the Materials Project stability field into a
+    reliable Boolean value.
+
+    Supports:
+    - True / False
+    - "True" / "False"
+    """
+
+    if isinstance(
+        value,
+        bool,
+    ):
+        return value
+
+    return (
+        str(value)
+        .strip()
+        .lower()
+        == "true"
+    )
+
+
+# ---------------------------------------------------------
+# Ranking score helper
+# ---------------------------------------------------------
+
+def get_ranking_score(
+    material
+):
+    """
+    Return the MAPPS-Lite ranking score for a material.
+
+    Current datasets use:
+        score
+
+    Older MAPPS-Lite datasets may use:
+        overall_score
+    """
+
+    if "score" in material.index:
+
+        return material[
+            "score"
+        ]
+
+    if "overall_score" in material.index:
+
+        return material[
+            "overall_score"
+        ]
+
+    raise ValueError(
+        "Material does not contain a ranking score. "
+        "Expected 'score' or 'overall_score'."
+    )
 
 
 # ---------------------------------------------------------
 # Explain thermodynamic ranking
 # ---------------------------------------------------------
 
-def explain_material(material):
-    """Generate thermodynamic explanations for a material."""
+def explain_material(
+    material
+):
+    """
+    Generate readable thermodynamic explanations for
+    a ranked material.
+    """
 
     explanations = []
 
@@ -135,9 +310,11 @@ def explain_material(material):
         "formation_energy_per_atom"
     ]
 
-    is_stable = material[
-        "is_stable"
-    ]
+    stable = is_material_stable(
+        material[
+            "is_stable"
+        ]
+    )
 
     if energy_above_hull == 0:
 
@@ -178,7 +355,7 @@ def explain_material(material):
             "contribution to the current ranking score."
         )
 
-    if is_stable:
+    if stable:
 
         explanations.append(
             "Materials Project identifies the material "
@@ -188,65 +365,80 @@ def explain_material(material):
     else:
 
         explanations.append(
-            "Materials Project does not currently classify "
-            "the material as stable."
+            "Materials Project does not currently "
+            "classify the material as stable."
         )
 
     return explanations
 
 
 # ---------------------------------------------------------
-# Generate composition assessment
+# Composition assessment
 # ---------------------------------------------------------
 
-def build_composition_assessment(composition):
-    """Create readable composition screening statements."""
+def build_composition_assessment(
+    composition
+):
+    """
+    Build readable chemistry-screening statements.
+    """
 
     assessment = []
 
-    if composition["contains_lithium"]:
+    if composition[
+        "contains_lithium"
+    ]:
 
         assessment.append(
-            "✓ Contains lithium."
+            "[OK] Contains lithium."
         )
 
     else:
 
         assessment.append(
-            "⚠ Does not contain lithium."
+            "[REVIEW] Does not contain lithium."
         )
 
-    if composition["contains_oxygen"]:
+    if composition[
+        "contains_oxygen"
+    ]:
 
         assessment.append(
-            "✓ Contains oxygen."
+            "[OK] Contains oxygen."
         )
 
     else:
 
         assessment.append(
-            "⚠ Does not contain oxygen."
+            "[REVIEW] Does not contain oxygen."
         )
 
-    if composition["relevant_metals"]:
+    if composition[
+        "relevant_metals"
+    ]:
 
         metals = ", ".join(
-            composition["relevant_metals"]
+            composition[
+                "relevant_metals"
+            ]
         )
 
         assessment.append(
-            f"✓ Contains battery-relevant "
+            "[OK] Contains battery-relevant "
             f"transition metal(s): {metals}."
         )
 
     else:
 
         assessment.append(
-            "⚠ No transition metals from the current "
-            "MAPPS-Lite screening list were detected."
+            "[REVIEW] No transition metals from "
+            "the current MAPPS-Lite screening list "
+            "were detected."
         )
 
-    if composition["flagged_elements"]:
+    if composition[
+        "flagged_elements"
+    ]:
 
         for element in composition[
             "flagged_elements"
@@ -257,14 +449,14 @@ def build_composition_assessment(composition):
             ]
 
             assessment.append(
-                f"⚠ Flagged for review: "
+                "[REVIEW] Flagged for review: "
                 f"{element} ({reason})."
             )
 
     else:
 
         assessment.append(
-            "✓ No elements from the current "
+            "[OK] No elements from the current "
             "MAPPS-Lite review list were detected."
         )
 
@@ -272,66 +464,92 @@ def build_composition_assessment(composition):
 
 
 # ---------------------------------------------------------
-# Assign candidate status
+# Candidate status
 # ---------------------------------------------------------
 
 def determine_candidate_status(
     material,
-    composition
+    composition,
 ):
     """
-    Assign a preliminary MAPPS-Lite candidate status.
+    Assign a preliminary MAPPS-Lite status.
+
+    PROMISING:
+        Stable convex-hull material that passes the
+        configured composition screening.
+
+    POSSIBLE:
+        Passes composition screening but does not meet
+        the strongest thermodynamic criteria.
+
+    REVIEW:
+        Contains a flagged element or lacks a configured
+        battery-relevant transition metal.
 
     This is not a final electrochemical judgment.
     """
 
-    if composition["flagged_elements"]:
+    if composition[
+        "flagged_elements"
+    ]:
 
         return (
-            "REVIEW",
+            STATUS_REVIEW,
             "Thermodynamically promising, but the "
             "composition contains one or more elements "
-            "flagged for additional review."
+            "flagged for additional review.",
         )
 
-    if not composition["relevant_metals"]:
+    if not composition[
+        "relevant_metals"
+    ]:
 
         return (
-            "REVIEW",
+            STATUS_REVIEW,
             "Thermodynamically promising, but no "
             "transition metal from the current "
             "battery-relevant screening list "
-            "was identified."
+            "was identified.",
         )
 
+    stable = is_material_stable(
+        material[
+            "is_stable"
+        ]
+    )
+
     if (
-        material["energy_above_hull"] == 0
-        and material["is_stable"]
+        material[
+            "energy_above_hull"
+        ] == 0
+        and stable
     ):
 
         return (
-            "PROMISING",
+            STATUS_PROMISING,
             "Strong thermodynamic candidate based on "
             "the current MAPPS-Lite screening criteria. "
             "Further electrochemical evaluation "
-            "is required."
+            "is required.",
         )
 
     return (
-        "POSSIBLE",
+        STATUS_POSSIBLE,
         "Candidate passes basic composition screening "
         "but requires additional stability and "
-        "electrochemical evaluation."
+        "electrochemical evaluation.",
     )
 
 
 # ---------------------------------------------------------
-# Screen every ranked material
+# Screen every material
 # ---------------------------------------------------------
 
-def screen_all_materials(materials):
+def screen_all_materials(
+    materials
+):
     """
-    Apply composition screening to every ranked material.
+    Apply chemistry screening to every ranked material.
 
     Adds:
     - battery_relevant_metals
@@ -339,33 +557,43 @@ def screen_all_materials(materials):
     - screening_status
     """
 
-    screened_materials = materials.copy()
+    screened_materials = (
+        materials.copy()
+    )
 
     relevant_metals_column = []
     flagged_elements_column = []
     status_column = []
 
-    for _, material in screened_materials.iterrows():
+    for _, material in (
+        screened_materials.iterrows()
+    ):
 
-        formula = material[
-            "formula"
-        ]
-
-        composition = analyze_composition(
-            formula
+        composition = (
+            analyze_composition(
+                material[
+                    "formula"
+                ]
+            )
         )
 
         relevant_metals = ", ".join(
-            composition["relevant_metals"]
+            composition[
+                "relevant_metals"
+            ]
         )
 
         flagged_elements = ", ".join(
-            composition["flagged_elements"]
+            composition[
+                "flagged_elements"
+            ]
         )
 
-        status, _ = determine_candidate_status(
-            material,
-            composition
+        status, _ = (
+            determine_candidate_status(
+                material,
+                composition,
+            )
         )
 
         relevant_metals_column.append(
@@ -402,38 +630,42 @@ def screen_all_materials(materials):
 def save_screened_materials(
     screened_materials
 ):
-    """Save the screened materials dataset."""
+    """
+    Save the complete screened dataset.
+    """
 
     SCREENED_OUTPUT_FILE.parent.mkdir(
         parents=True,
-        exist_ok=True
+        exist_ok=True,
     )
 
     screened_materials.to_csv(
         SCREENED_OUTPUT_FILE,
-        index=False
+        index=False,
     )
 
     print(
         f"Saved {len(screened_materials)} "
-        f"screened materials to:"
+        "screened materials to:"
     )
 
     print(
         SCREENED_OUTPUT_FILE
     )
 
+    return screened_materials
+
 
 # ---------------------------------------------------------
-# Generate screening statistics
+# Screening statistics
 # ---------------------------------------------------------
 
 def generate_screening_summary(
     screened_materials
 ):
     """
-    Generate summary statistics for the complete
-    screened materials dataset.
+    Generate statistics for the complete screened
+    materials dataset.
     """
 
     total_materials = len(
@@ -448,36 +680,48 @@ def generate_screening_summary(
         .to_dict()
     )
 
-    promising_count = status_counts.get(
-        "PROMISING",
-        0
+    promising_count = (
+        status_counts.get(
+            STATUS_PROMISING,
+            0,
+        )
     )
 
-    possible_count = status_counts.get(
-        "POSSIBLE",
-        0
+    possible_count = (
+        status_counts.get(
+            STATUS_POSSIBLE,
+            0,
+        )
     )
 
-    review_count = status_counts.get(
-        "REVIEW",
-        0
+    review_count = (
+        status_counts.get(
+            STATUS_REVIEW,
+            0,
+        )
     )
 
     flagged_counts = {
         element: 0
-        for element in FLAGGED_ELEMENTS
+        for element
+        in FLAGGED_ELEMENTS
     }
 
-    for flagged_value in screened_materials[
-        "flagged_elements"
-    ].fillna(""):
+    for flagged_value in (
+        screened_materials[
+            "flagged_elements"
+        ]
+        .fillna("")
+    ):
 
         if not flagged_value:
+
             continue
 
         elements = [
             element.strip()
-            for element in flagged_value.split(",")
+            for element
+            in flagged_value.split(",")
         ]
 
         for element in elements:
@@ -489,62 +733,137 @@ def generate_screening_summary(
                 ] += 1
 
     return {
-        "total_materials": total_materials,
-        "promising_count": promising_count,
-        "possible_count": possible_count,
-        "review_count": review_count,
-        "flagged_counts": flagged_counts,
+        "total_materials":
+            total_materials,
+
+        "promising_count":
+            promising_count,
+
+        "possible_count":
+            possible_count,
+
+        "review_count":
+            review_count,
+
+        "flagged_counts":
+            flagged_counts,
     }
 
 
 # ---------------------------------------------------------
-# Select top promising candidates
+# Print screening summary
+# ---------------------------------------------------------
+
+def print_screening_summary(
+    summary
+):
+    """
+    Display screening statistics in the terminal.
+    """
+
+    print()
+    print(
+        "Screening summary:"
+    )
+    print()
+
+    print(
+        f"{STATUS_PROMISING}: "
+        f"{summary['promising_count']}"
+    )
+
+    print(
+        f"{STATUS_POSSIBLE}: "
+        f"{summary['possible_count']}"
+    )
+
+    print(
+        f"{STATUS_REVIEW}: "
+        f"{summary['review_count']}"
+    )
+
+    print()
+
+
+# ---------------------------------------------------------
+# Select top candidates
 # ---------------------------------------------------------
 
 def select_top_promising_materials(
     screened_materials,
-    top_n=10
+    top_n=TOP_CANDIDATE_COUNT,
 ):
     """
-    Select the highest-ranked materials classified
-    as PROMISING.
+    Select the highest-ranked PROMISING candidates.
     """
 
-    promising_materials = screened_materials[
+    promising_materials = (
         screened_materials[
-            "screening_status"
-        ] == "PROMISING"
-    ]
+            screened_materials[
+                "screening_status"
+            ]
+            == STATUS_PROMISING
+        ]
+    )
 
     if "rank" in promising_materials.columns:
 
         top_materials = (
             promising_materials
-            .sort_values("rank")
-            .head(top_n)
+            .sort_values(
+                by="rank",
+                ascending=True,
+            )
+            .head(
+                top_n
+            )
         )
 
-    elif "overall_score" in promising_materials.columns:
+    elif "score" in promising_materials.columns:
 
         top_materials = (
             promising_materials
             .sort_values(
-                "overall_score",
-                ascending=False
+                by="score",
+                ascending=False,
             )
-            .head(top_n)
+            .head(
+                top_n
+            )
+        )
+
+    elif (
+        "overall_score"
+        in promising_materials.columns
+    ):
+
+        top_materials = (
+            promising_materials
+            .sort_values(
+                by="overall_score",
+                ascending=False,
+            )
+            .head(
+                top_n
+            )
         )
 
     else:
 
         raise ValueError(
-            "The dataset must contain either "
-            "'rank' or 'overall_score'."
+            "The dataset must contain 'rank', "
+            "'score', or 'overall_score'."
         )
 
     print(
         f"Found {len(promising_materials)} "
-        f"PROMISING materials."
+        f"{STATUS_PROMISING} materials."
+    )
+
+    print(
+        f"Selecting top "
+        f"{min(top_n, len(promising_materials))} "
+        "for the report."
     )
 
     return top_materials
@@ -556,14 +875,39 @@ def select_top_promising_materials(
 
 def build_report(
     top_materials,
-    summary
+    summary,
 ):
     """
-    Create a Markdown report containing screening
-    statistics and the top promising materials.
+    Build the complete Markdown screening report.
     """
 
     report = []
+
+    ranking_model = (
+        get_ranking_model_summary()
+    )
+
+    hull_percent = (
+        ranking_model[
+            "energy_above_hull_percent"
+        ]
+    )
+
+    formation_percent = (
+        ranking_model[
+            "formation_energy_percent"
+        ]
+    )
+
+    stability_percent = (
+        ranking_model[
+            "stability_flag_percent"
+        ]
+    )
+
+    # -----------------------------------------------------
+    # Report header
+    # -----------------------------------------------------
 
     report.append(
         "# MAPPS-Lite Materials Screening Report"
@@ -590,31 +934,31 @@ def build_report(
     report.append("")
 
     report.append(
-        f"**Total Materials Screened:** "
+        "**Total Materials Screened:** "
         f"{summary['total_materials']}"
     )
 
     report.append("")
 
     report.append(
-        f"- PROMISING: "
+        f"- {STATUS_PROMISING}: "
         f"{summary['promising_count']}"
     )
 
     report.append(
-        f"- POSSIBLE: "
+        f"- {STATUS_POSSIBLE}: "
         f"{summary['possible_count']}"
     )
 
     report.append(
-        f"- REVIEW: "
+        f"- {STATUS_REVIEW}: "
         f"{summary['review_count']}"
     )
 
     report.append("")
 
     # -----------------------------------------------------
-    # Flagged element summary
+    # Flagged elements
     # -----------------------------------------------------
 
     report.append(
@@ -625,9 +969,12 @@ def build_report(
 
     any_flagged = False
 
-    for element, count in summary[
-        "flagged_counts"
-    ].items():
+    for element, count in (
+        summary[
+            "flagged_counts"
+        ]
+        .items()
+    ):
 
         if count > 0:
 
@@ -641,13 +988,14 @@ def build_report(
     if not any_flagged:
 
         report.append(
-            "- No flagged elements were detected."
+            "- No flagged elements "
+            "were detected."
         )
 
     report.append("")
 
     # -----------------------------------------------------
-    # Ranking model explanation
+    # Ranking model
     # -----------------------------------------------------
 
     report.append(
@@ -663,15 +1011,25 @@ def build_report(
     report.append("")
 
     report.append(
-        "- Energy above hull: 55%"
+        "- Energy above hull: "
+        f"{hull_percent:.0f}%"
     )
 
     report.append(
-        "- Formation energy per atom: 35%"
+        "- Formation energy per atom: "
+        f"{formation_percent:.0f}%"
     )
 
     report.append(
-        "- Materials Project stability flag: 10%"
+        "- Materials Project stability flag: "
+        f"{stability_percent:.0f}%"
+    )
+
+    report.append("")
+
+    report.append(
+        "These values are loaded directly from "
+        "`src/config.py`."
     )
 
     report.append("")
@@ -690,18 +1048,19 @@ def build_report(
     report.append("")
 
     report.append(
-        "# Top 10 Promising Candidates"
+        f"# Top {TOP_CANDIDATE_COUNT} "
+        "Promising Candidates"
     )
 
     report.append("")
 
     # -----------------------------------------------------
-    # Top material reports
+    # Individual material reports
     # -----------------------------------------------------
 
     for position, (_, material) in enumerate(
         top_materials.iterrows(),
-        start=1
+        start=1,
     ):
 
         formula = material[
@@ -712,28 +1071,42 @@ def build_report(
             "material_id"
         ]
 
-        overall_score = material[
-            "overall_score"
-        ]
-
-        energy_above_hull = material[
-            "energy_above_hull"
-        ]
-
-        formation_energy = material[
-            "formation_energy_per_atom"
-        ]
-
-        is_stable = material[
-            "is_stable"
-        ]
-
-        composition = analyze_composition(
-            formula
+        ranking_score = (
+            get_ranking_score(
+                material
+            )
         )
 
-        explanations = explain_material(
-            material
+        energy_above_hull = (
+            material[
+                "energy_above_hull"
+            ]
+        )
+
+        formation_energy = (
+            material[
+                "formation_energy_per_atom"
+            ]
+        )
+
+        stable = (
+            is_material_stable(
+                material[
+                    "is_stable"
+                ]
+            )
+        )
+
+        composition = (
+            analyze_composition(
+                formula
+            )
+        )
+
+        explanations = (
+            explain_material(
+                material
+            )
         )
 
         composition_assessment = (
@@ -745,11 +1118,13 @@ def build_report(
         status, status_explanation = (
             determine_candidate_status(
                 material,
-                composition
+                composition,
             )
         )
 
+        # -------------------------------------------------
         # Material header
+        # -------------------------------------------------
 
         report.append(
             f"## {position}. {formula}"
@@ -758,27 +1133,38 @@ def build_report(
         report.append("")
 
         report.append(
-            f"**Materials Project ID:** "
+            "**Materials Project ID:** "
             f"{material_id}"
         )
 
         report.append("")
 
+        if "rank" in material.index:
+
+            report.append(
+                "**Overall Rank:** "
+                f"{int(material['rank'])}"
+            )
+
+            report.append("")
+
         report.append(
-            f"**Overall Score:** "
-            f"{overall_score:.4f}"
+            "**Ranking Score:** "
+            f"{ranking_score:.4f}"
         )
 
         report.append("")
 
         report.append(
-            f"**MAPPS-Lite Status:** "
+            "**MAPPS-Lite Status:** "
             f"{status}"
         )
 
         report.append("")
 
+        # -------------------------------------------------
         # Thermodynamic properties
+        # -------------------------------------------------
 
         report.append(
             "### Thermodynamic Properties"
@@ -787,38 +1173,60 @@ def build_report(
         report.append("")
 
         report.append(
-            f"**Energy Above Hull:** "
+            "**Energy Above Hull:** "
             f"{energy_above_hull:.4f} eV/atom"
         )
 
         report.append("")
 
         report.append(
-            f"**Formation Energy:** "
+            "**Formation Energy:** "
             f"{formation_energy:.4f} eV/atom"
         )
 
         report.append("")
 
         report.append(
-            f"**Stable:** {is_stable}"
+            f"**Stable:** {stable}"
         )
 
         report.append("")
 
         if (
             "density" in material.index
-            and pd.notna(material["density"])
+            and pd.notna(
+                material[
+                    "density"
+                ]
+            )
         ):
 
             report.append(
-                f"**Density:** "
-                f"{material['density']:.4f} g/cm³"
+                "**Density:** "
+                f"{material['density']:.4f} g/cm^3"
             )
 
             report.append("")
 
+        if (
+            "band_gap" in material.index
+            and pd.notna(
+                material[
+                    "band_gap"
+                ]
+            )
+        ):
+
+            report.append(
+                "**Band Gap:** "
+                f"{material['band_gap']:.4f} eV"
+            )
+
+            report.append("")
+
+        # -------------------------------------------------
         # Ranking explanation
+        # -------------------------------------------------
 
         report.append(
             "### Why It Ranked Highly"
@@ -834,7 +1242,9 @@ def build_report(
 
         report.append("")
 
-        # Composition analysis
+        # -------------------------------------------------
+        # Composition screening
+        # -------------------------------------------------
 
         report.append(
             "### Composition Assessment"
@@ -842,7 +1252,9 @@ def build_report(
 
         report.append("")
 
-        for statement in composition_assessment:
+        for statement in (
+            composition_assessment
+        ):
 
             report.append(
                 f"- {statement}"
@@ -850,7 +1262,9 @@ def build_report(
 
         report.append("")
 
+        # -------------------------------------------------
         # Final assessment
+        # -------------------------------------------------
 
         report.append(
             "### MAPPS-Lite Assessment"
@@ -868,24 +1282,30 @@ def build_report(
 
         report.append("")
 
-    return "\n".join(report)
+    return "\n".join(
+        report
+    )
 
 
 # ---------------------------------------------------------
 # Save report
 # ---------------------------------------------------------
 
-def save_report(report):
-    """Save the Markdown analysis report."""
+def save_report(
+    report
+):
+    """
+    Save the Markdown analysis report.
+    """
 
     REPORT_OUTPUT_FILE.parent.mkdir(
         parents=True,
-        exist_ok=True
+        exist_ok=True,
     )
 
     REPORT_OUTPUT_FILE.write_text(
         report,
-        encoding="utf-8"
+        encoding="utf-8",
     )
 
     print(
@@ -898,55 +1318,93 @@ def save_report(report):
 
 
 # ---------------------------------------------------------
-# Main program
+# Analysis pipeline
 # ---------------------------------------------------------
 
-def main():
-    """Run the MAPPS-Lite screening and analysis pipeline."""
+def run_analysis_pipeline():
+    """
+    Run the complete MAPPS-Lite screening and reporting
+    pipeline.
 
-    # Step 1:
-    # Load all ranked materials.
-    materials = load_ranked_materials()
+    Workflow:
 
-    # Step 2:
-    # Screen every material.
-    screened_materials = screen_all_materials(
-        materials
+    1. Load ranked materials.
+    2. Screen every composition.
+    3. Assign PROMISING / POSSIBLE / REVIEW.
+    4. Save screened_materials.csv.
+    5. Generate screening statistics.
+    6. Select the configured number of top candidates.
+    7. Build the Markdown report.
+    8. Save top_materials_report.md.
+
+    Returns:
+        pandas.DataFrame:
+            Complete screened materials dataset.
+    """
+
+    print(
+        "Loading ranked materials..."
     )
 
-    # Step 3:
-    # Save the complete screened dataset.
+    materials = (
+        load_ranked_materials()
+    )
+
+    print(
+        "Screening material compositions..."
+    )
+
+    screened_materials = (
+        screen_all_materials(
+            materials
+        )
+    )
+
     save_screened_materials(
         screened_materials
     )
 
-    # Step 4:
-    # Generate statistics for the full dataset.
-    summary = generate_screening_summary(
-        screened_materials
-    )
-
-    # Step 5:
-    # Select the top 10 PROMISING materials.
-    top_materials = (
-        select_top_promising_materials(
-            screened_materials,
-            top_n=10
+    summary = (
+        generate_screening_summary(
+            screened_materials
         )
     )
 
-    # Step 6:
-    # Build the complete screening report.
-    report = build_report(
-        top_materials,
+    print_screening_summary(
         summary
     )
 
-    # Step 7:
-    # Save the report.
+    top_materials = (
+        select_top_promising_materials(
+            screened_materials,
+            top_n=TOP_CANDIDATE_COUNT,
+        )
+    )
+
+    report = (
+        build_report(
+            top_materials,
+            summary,
+        )
+    )
+
     save_report(
         report
     )
+
+    return screened_materials
+
+
+# ---------------------------------------------------------
+# Standalone execution
+# ---------------------------------------------------------
+
+def main():
+    """
+    Run the screening stage independently.
+    """
+
+    run_analysis_pipeline()
 
 
 if __name__ == "__main__":

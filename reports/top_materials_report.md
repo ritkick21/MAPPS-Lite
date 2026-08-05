@@ -23,6 +23,8 @@ The thermodynamic ranking model uses:
 - Formation energy per atom: 35%
 - Materials Project stability flag: 10%
 
+These values are loaded directly from `src/config.py`.
+
 The secondary screening layer evaluates chemical composition, identifies battery-relevant transition metals, and flags selected elements for additional review.
 
 ---
@@ -33,7 +35,9 @@ The secondary screening layer evaluates chemical composition, identifies battery
 
 **Materials Project ID:** mp-16691
 
-**Overall Score:** 0.9649
+**Overall Rank:** 1
+
+**Ranking Score:** 0.9649
 
 **MAPPS-Lite Status:** PROMISING
 
@@ -45,7 +49,9 @@ The secondary screening layer evaluates chemical composition, identifies battery
 
 **Stable:** True
 
-**Density:** 3.7274 g/cm³
+**Density:** 3.7274 g/cm^3
+
+**Band Gap:** 2.8389 eV
 
 ### Why It Ranked Highly
 
@@ -55,10 +61,10 @@ The secondary screening layer evaluates chemical composition, identifies battery
 
 ### Composition Assessment
 
-- ✓ Contains lithium.
-- ✓ Contains oxygen.
-- ✓ Contains battery-relevant transition metal(s): Ti.
-- ✓ No elements from the current MAPPS-Lite review list were detected.
+- [OK] Contains lithium.
+- [OK] Contains oxygen.
+- [OK] Contains battery-relevant transition metal(s): Ti.
+- [OK] No elements from the current MAPPS-Lite review list were detected.
 
 ### MAPPS-Lite Assessment
 
@@ -70,7 +76,9 @@ Strong thermodynamic candidate based on the current MAPPS-Lite screening criteri
 
 **Materials Project ID:** mp-558083
 
-**Overall Score:** 0.9648
+**Overall Rank:** 2
+
+**Ranking Score:** 0.9648
 
 **MAPPS-Lite Status:** PROMISING
 
@@ -82,7 +90,9 @@ Strong thermodynamic candidate based on the current MAPPS-Lite screening criteri
 
 **Stable:** True
 
-**Density:** 3.9425 g/cm³
+**Density:** 3.9425 g/cm^3
+
+**Band Gap:** 2.8908 eV
 
 ### Why It Ranked Highly
 
@@ -92,10 +102,10 @@ Strong thermodynamic candidate based on the current MAPPS-Lite screening criteri
 
 ### Composition Assessment
 
-- ✓ Contains lithium.
-- ✓ Contains oxygen.
-- ✓ Contains battery-relevant transition metal(s): Ti.
-- ✓ No elements from the current MAPPS-Lite review list were detected.
+- [OK] Contains lithium.
+- [OK] Contains oxygen.
+- [OK] Contains battery-relevant transition metal(s): Ti.
+- [OK] No elements from the current MAPPS-Lite review list were detected.
 
 ### MAPPS-Lite Assessment
 
@@ -107,7 +117,9 @@ Strong thermodynamic candidate based on the current MAPPS-Lite screening criteri
 
 **Materials Project ID:** mp-5670
 
-**Overall Score:** 0.9448
+**Overall Rank:** 3
+
+**Ranking Score:** 0.9448
 
 **MAPPS-Lite Status:** PROMISING
 
@@ -119,7 +131,9 @@ Strong thermodynamic candidate based on the current MAPPS-Lite screening criteri
 
 **Stable:** True
 
-**Density:** 3.7412 g/cm³
+**Density:** 3.7412 g/cm^3
+
+**Band Gap:** 0.0000 eV
 
 ### Why It Ranked Highly
 
@@ -129,10 +143,10 @@ Strong thermodynamic candidate based on the current MAPPS-Lite screening criteri
 
 ### Composition Assessment
 
-- ✓ Contains lithium.
-- ✓ Contains oxygen.
-- ✓ Contains battery-relevant transition metal(s): Ti.
-- ✓ No elements from the current MAPPS-Lite review list were detected.
+- [OK] Contains lithium.
+- [OK] Contains oxygen.
+- [OK] Contains battery-relevant transition metal(s): Ti.
+- [OK] No elements from the current MAPPS-Lite review list were detected.
 
 ### MAPPS-Lite Assessment
 
@@ -144,7 +158,9 @@ Strong thermodynamic candidate based on the current MAPPS-Lite screening criteri
 
 **Materials Project ID:** mp-774752
 
-**Overall Score:** 0.9435
+**Overall Rank:** 4
+
+**Ranking Score:** 0.9435
 
 **MAPPS-Lite Status:** PROMISING
 
@@ -156,7 +172,9 @@ Strong thermodynamic candidate based on the current MAPPS-Lite screening criteri
 
 **Stable:** True
 
-**Density:** 3.4099 g/cm³
+**Density:** 3.4099 g/cm^3
+
+**Band Gap:** 3.2916 eV
 
 ### Why It Ranked Highly
 
@@ -166,10 +184,10 @@ Strong thermodynamic candidate based on the current MAPPS-Lite screening criteri
 
 ### Composition Assessment
 
-- ✓ Contains lithium.
-- ✓ Contains oxygen.
-- ✓ Contains battery-relevant transition metal(s): Ti.
-- ✓ No elements from the current MAPPS-Lite review list were detected.
+- [OK] Contains lithium.
+- [OK] Contains oxygen.
+- [OK] Contains battery-relevant transition metal(s): Ti.
+- [OK] No elements from the current MAPPS-Lite review list were detected.
 
 ### MAPPS-Lite Assessment
 
@@ -181,7 +199,9 @@ Strong thermodynamic candidate based on the current MAPPS-Lite screening criteri
 
 **Materials Project ID:** mp-766823
 
-**Overall Score:** 0.9423
+**Overall Rank:** 5
+
+**Ranking Score:** 0.9423
 
 **MAPPS-Lite Status:** PROMISING
 
@@ -193,7 +213,9 @@ Strong thermodynamic candidate based on the current MAPPS-Lite screening criteri
 
 **Stable:** True
 
-**Density:** 3.6237 g/cm³
+**Density:** 3.6237 g/cm^3
+
+**Band Gap:** 0.0000 eV
 
 ### Why It Ranked Highly
 
@@ -203,10 +225,10 @@ Strong thermodynamic candidate based on the current MAPPS-Lite screening criteri
 
 ### Composition Assessment
 
-- ✓ Contains lithium.
-- ✓ Contains oxygen.
-- ✓ Contains battery-relevant transition metal(s): Ti.
-- ✓ No elements from the current MAPPS-Lite review list were detected.
+- [OK] Contains lithium.
+- [OK] Contains oxygen.
+- [OK] Contains battery-relevant transition metal(s): Ti.
+- [OK] No elements from the current MAPPS-Lite review list were detected.
 
 ### MAPPS-Lite Assessment
 
@@ -218,7 +240,9 @@ Strong thermodynamic candidate based on the current MAPPS-Lite screening criteri
 
 **Materials Project ID:** mp-554324
 
-**Overall Score:** 0.9413
+**Overall Rank:** 6
+
+**Ranking Score:** 0.9413
 
 **MAPPS-Lite Status:** PROMISING
 
@@ -230,7 +254,9 @@ Strong thermodynamic candidate based on the current MAPPS-Lite screening criteri
 
 **Stable:** True
 
-**Density:** 3.0529 g/cm³
+**Density:** 3.0529 g/cm^3
+
+**Band Gap:** 4.2908 eV
 
 ### Why It Ranked Highly
 
@@ -240,10 +266,10 @@ Strong thermodynamic candidate based on the current MAPPS-Lite screening criteri
 
 ### Composition Assessment
 
-- ✓ Contains lithium.
-- ✓ Contains oxygen.
-- ✓ Contains battery-relevant transition metal(s): Mn.
-- ✓ No elements from the current MAPPS-Lite review list were detected.
+- [OK] Contains lithium.
+- [OK] Contains oxygen.
+- [OK] Contains battery-relevant transition metal(s): Mn.
+- [OK] No elements from the current MAPPS-Lite review list were detected.
 
 ### MAPPS-Lite Assessment
 
@@ -255,7 +281,9 @@ Strong thermodynamic candidate based on the current MAPPS-Lite screening criteri
 
 **Materials Project ID:** mp-6332
 
-**Overall Score:** 0.9252
+**Overall Rank:** 8
+
+**Ranking Score:** 0.9252
 
 **MAPPS-Lite Status:** PROMISING
 
@@ -267,7 +295,9 @@ Strong thermodynamic candidate based on the current MAPPS-Lite screening criteri
 
 **Stable:** True
 
-**Density:** 2.9938 g/cm³
+**Density:** 2.9938 g/cm^3
+
+**Band Gap:** 3.2153 eV
 
 ### Why It Ranked Highly
 
@@ -277,10 +307,10 @@ Strong thermodynamic candidate based on the current MAPPS-Lite screening criteri
 
 ### Composition Assessment
 
-- ✓ Contains lithium.
-- ✓ Contains oxygen.
-- ✓ Contains battery-relevant transition metal(s): Ti.
-- ✓ No elements from the current MAPPS-Lite review list were detected.
+- [OK] Contains lithium.
+- [OK] Contains oxygen.
+- [OK] Contains battery-relevant transition metal(s): Ti.
+- [OK] No elements from the current MAPPS-Lite review list were detected.
 
 ### MAPPS-Lite Assessment
 
@@ -292,7 +322,9 @@ Strong thermodynamic candidate based on the current MAPPS-Lite screening criteri
 
 **Materials Project ID:** mp-775865
 
-**Overall Score:** 0.9235
+**Overall Rank:** 9
+
+**Ranking Score:** 0.9235
 
 **MAPPS-Lite Status:** PROMISING
 
@@ -304,7 +336,9 @@ Strong thermodynamic candidate based on the current MAPPS-Lite screening criteri
 
 **Stable:** True
 
-**Density:** 3.6474 g/cm³
+**Density:** 3.6474 g/cm^3
+
+**Band Gap:** 2.3697 eV
 
 ### Why It Ranked Highly
 
@@ -314,10 +348,10 @@ Strong thermodynamic candidate based on the current MAPPS-Lite screening criteri
 
 ### Composition Assessment
 
-- ✓ Contains lithium.
-- ✓ Contains oxygen.
-- ✓ Contains battery-relevant transition metal(s): Mn, Ti.
-- ✓ No elements from the current MAPPS-Lite review list were detected.
+- [OK] Contains lithium.
+- [OK] Contains oxygen.
+- [OK] Contains battery-relevant transition metal(s): Mn, Ti.
+- [OK] No elements from the current MAPPS-Lite review list were detected.
 
 ### MAPPS-Lite Assessment
 
@@ -329,7 +363,9 @@ Strong thermodynamic candidate based on the current MAPPS-Lite screening criteri
 
 **Materials Project ID:** mp-769637
 
-**Overall Score:** 0.9205
+**Overall Rank:** 11
+
+**Ranking Score:** 0.9205
 
 **MAPPS-Lite Status:** PROMISING
 
@@ -341,7 +377,9 @@ Strong thermodynamic candidate based on the current MAPPS-Lite screening criteri
 
 **Stable:** True
 
-**Density:** 3.5033 g/cm³
+**Density:** 3.5033 g/cm^3
+
+**Band Gap:** 2.6955 eV
 
 ### Why It Ranked Highly
 
@@ -351,10 +389,10 @@ Strong thermodynamic candidate based on the current MAPPS-Lite screening criteri
 
 ### Composition Assessment
 
-- ✓ Contains lithium.
-- ✓ Contains oxygen.
-- ✓ Contains battery-relevant transition metal(s): Fe, Ti.
-- ✓ No elements from the current MAPPS-Lite review list were detected.
+- [OK] Contains lithium.
+- [OK] Contains oxygen.
+- [OK] Contains battery-relevant transition metal(s): Fe, Ti.
+- [OK] No elements from the current MAPPS-Lite review list were detected.
 
 ### MAPPS-Lite Assessment
 
@@ -366,7 +404,9 @@ Strong thermodynamic candidate based on the current MAPPS-Lite screening criteri
 
 **Materials Project ID:** mp-774797
 
-**Overall Score:** 0.9187
+**Overall Rank:** 12
+
+**Ranking Score:** 0.9187
 
 **MAPPS-Lite Status:** PROMISING
 
@@ -378,7 +418,9 @@ Strong thermodynamic candidate based on the current MAPPS-Lite screening criteri
 
 **Stable:** True
 
-**Density:** 3.8671 g/cm³
+**Density:** 3.8671 g/cm^3
+
+**Band Gap:** 3.1268 eV
 
 ### Why It Ranked Highly
 
@@ -388,10 +430,10 @@ Strong thermodynamic candidate based on the current MAPPS-Lite screening criteri
 
 ### Composition Assessment
 
-- ✓ Contains lithium.
-- ✓ Contains oxygen.
-- ✓ Contains battery-relevant transition metal(s): Ti.
-- ✓ No elements from the current MAPPS-Lite review list were detected.
+- [OK] Contains lithium.
+- [OK] Contains oxygen.
+- [OK] Contains battery-relevant transition metal(s): Ti.
+- [OK] No elements from the current MAPPS-Lite review list were detected.
 
 ### MAPPS-Lite Assessment
 
