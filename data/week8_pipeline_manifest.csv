@@ -1,0 +1,24 @@
+week,stage,artifact,required,exists,status,rows,size_bytes,sha256
+Weeks 1-4,Materials Project candidate dataset,data/materials.csv,True,True,PASS,4717,525836,ba38d77bbf40eeff6cc596b1acde8e7e48994145d6ab93d43ca00c13427ef6b0
+Weeks 1-4,Thermodynamic ranking,data/ranked_materials.csv,True,True,PASS,4717,819334,5ded732c98a80a3e8bf223ce2629f1ff91e23d89190ebae5d061ec297ac46088
+Weeks 1-4,Screened candidate dataset,data/screened_materials.csv,True,True,PASS,4717,882063,7506a84888fe2a7fe88a9e38658dcde9a23f3cd4bb73b0ebd41e0847d5e64326
+Weeks 1-4,Top-materials report,reports/top_materials_report.md,True,True,PASS,,10971,68c7966e7d255f7c83ed285eefc98ed1781b11962b16459dae2cb2d5d0287ef9
+Week 5,Electrochemical evaluation,data/electrochemical_evaluation.csv,True,True,PASS,179,77310,33e74dcdae64ada807eed9f5f1e1f89b34019de13dbe2ddff26dad4ac55a09b1
+Week 5,Reference cathode benchmarks,data/cathode_benchmarks.csv,True,True,PASS,6,1921,f34402c13efa9f7a5d6aca08030bb4d7815c8a92ee2c439ae92ed4192705669b
+Week 5,Benchmark comparison,data/benchmark_comparison.csv,True,True,PASS,179,85248,55228d5330178805d114b63482b07162bd93bfce69b14e78d2ec48c73f0d20cc
+Week 5,Exact structure validation,data/exact_structure_validation.csv,True,True,PASS,179,52895,18b37799d1cd26cf31b4107d9a7aa82c56663cdc39c640552565e249e04e15c2
+Week 5,Final candidate ranking,data/final_candidate_ranking.csv,True,True,PASS,179,160456,578d8aad4372198476944dbc838324da0e1d064aa614e426d0fa996192c12550
+Week 5,Week 5 shortlist,data/week5_shortlist.csv,True,True,PASS,15,25200,14ec89c7bfe45d48ebcbbe9e4877cc9ac723bc6e4d0178169ad58de44e01f4d6
+Week 5,Week 5 progress report,reports/week5_progress.md,True,True,PASS,,14673,276e47d48d601c2211c171752f11b7871713bab1725c1b97fe58ec4d1f25c290
+Week 6,Research shortlist,data/week6_research_shortlist.csv,True,True,PASS,5,19761,c2c522c6909f221169d390928a500b3f5e3c9ddb00c2be2f9dc45cb56a86cc85
+Week 6,Literature validation,data/week6_literature_validation.csv,True,True,PASS,15,30148,8baa50fa97a9149f9beddeccf349b65455c4bcd51ac7ed9ccc8e39ca4425932b
+Week 6,Synthesis feasibility,data/week6_synthesis_feasibility.csv,True,True,PASS,15,33457,0dc391bdb060284a124d640da1a1d62a62dd5ceec9acea6ea13c95e8ecd3494b
+Week 6,Transport evaluation,data/week6_transport_evaluation.csv,True,True,PASS,15,37300,edb941e6cf6340e702e1d1d68954b6ccbc48a6d40e08779144fd40f43ce8a682
+Week 6,Resource sustainability assessment,data/week6_resource_assessment.csv,True,True,PASS,15,40270,7a499f1bbd2c7cf44c19f4f38323897096c52a9f2600e26e39e5f36f62bc4770
+Week 6,Provenance validation,data/week6_provenance_validation.csv,True,True,PASS,15,27404,a8af70f947fabe7355896616eaafa504e8a727b34f1ff0125767e0fec72f1642
+Week 6,Final Week 6 ranking,data/week6_final_ranking.csv,True,True,PASS,15,43369,c7cf5654eed038cd0b4e74fd2ac6565b24857fcf510c7a838dfdd88e84748d7b
+Week 6,Final selection report,reports/week6_final_selection.md,True,True,PASS,,4194,c417d73e038a63b5051b3b1dca8e1d649f720c1ba238e7821c66892e8ca0792b
+Week 6,Week 6 progress report,reports/week6_progress.md,True,True,PASS,,873,0925dff94cbf5423055369b08dfde648a3ce84ad4b88c0ad72ec2300b4a014d7
+Week 7,Final Week 7 ranking,data/week7_final_ranking.csv,True,True,PASS,10,234766,82cb9a10bf0fa86db8dc78258ad7b677e57bdb14747ec62a86392198cfe9e9e1
+Week 7,Final research recommendation,reports/week7_final_recommendation.md,True,True,PASS,,11010,a32a46ffb3cf1839b6bdead848ff33a0dc353219991bbdac1e8cae6989c9b341
+Week 7,Week 7 progress report,reports/week7_progress.md,True,True,PASS,,4037,918ceafe4f5fe8b654fb9db6b4969a4f8c46c0feff0fcc45499a47d14770f3f7

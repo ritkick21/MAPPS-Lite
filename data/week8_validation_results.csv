@@ -1,0 +1,488 @@
+category,check,status,details
+Dataset,materials.csv contains data,PASS,4717 rows detected.
+Dataset,ranked_materials.csv contains data,PASS,4717 rows detected.
+Dataset,screened_materials.csv contains data,PASS,4717 rows detected.
+Dataset,electrochemical_evaluation.csv contains data,PASS,179 rows detected.
+Dataset,exact_structure_validation.csv contains data,PASS,179 rows detected.
+Dataset,final_candidate_ranking.csv contains data,PASS,179 rows detected.
+Dataset,week5_shortlist.csv contains data,PASS,15 rows detected.
+Dataset,week6_research_shortlist.csv contains data,PASS,5 rows detected.
+Dataset,week6_literature_validation.csv contains data,PASS,15 rows detected.
+Dataset,week6_synthesis_feasibility.csv contains data,PASS,15 rows detected.
+Dataset,week6_transport_evaluation.csv contains data,PASS,15 rows detected.
+Dataset,week6_resource_assessment.csv contains data,PASS,15 rows detected.
+Dataset,week6_provenance_validation.csv contains data,PASS,15 rows detected.
+Dataset,week6_final_ranking.csv contains data,PASS,15 rows detected.
+Dataset,week7_final_ranking.csv contains data,PASS,10 rows detected.
+Material IDs,materials.csv material IDs present,PASS,All 4717 rows contain material_id.
+Material IDs,materials.csv unique material IDs,PASS,No duplicate material_id values detected.
+Material IDs,ranked_materials.csv material IDs present,PASS,All 4717 rows contain material_id.
+Material IDs,ranked_materials.csv unique material IDs,PASS,No duplicate material_id values detected.
+Material IDs,screened_materials.csv material IDs present,PASS,All 4717 rows contain material_id.
+Material IDs,screened_materials.csv unique material IDs,PASS,No duplicate material_id values detected.
+Material IDs,electrochemical_evaluation.csv material IDs present,PASS,All 179 rows contain material_id.
+Material IDs,electrochemical_evaluation.csv unique material IDs,PASS,No duplicate material_id values detected.
+Material IDs,exact_structure_validation.csv material IDs present,PASS,All 179 rows contain material_id.
+Material IDs,exact_structure_validation.csv unique material IDs,PASS,No duplicate material_id values detected.
+Material IDs,final_candidate_ranking.csv material IDs present,PASS,All 179 rows contain material_id.
+Material IDs,final_candidate_ranking.csv unique material IDs,PASS,No duplicate material_id values detected.
+Material IDs,week5_shortlist.csv material IDs present,PASS,All 15 rows contain material_id.
+Material IDs,week5_shortlist.csv unique material IDs,PASS,No duplicate material_id values detected.
+Material IDs,week6_research_shortlist.csv material IDs present,PASS,All 5 rows contain material_id.
+Material IDs,week6_research_shortlist.csv unique material IDs,PASS,No duplicate material_id values detected.
+Material IDs,week6_final_ranking.csv material IDs present,PASS,All 15 rows contain material_id.
+Material IDs,week6_final_ranking.csv unique material IDs,PASS,No duplicate material_id values detected.
+Material IDs,week7_final_ranking.csv material IDs present,PASS,All 10 rows contain material_id.
+Material IDs,week7_final_ranking.csv unique material IDs,PASS,No duplicate material_id values detected.
+Numeric Integrity,materials.csv finite numeric values,PASS,Checked 4 numeric columns.
+Numeric Integrity,ranked_materials.csv finite numeric values,PASS,Checked 9 numeric columns.
+Numeric Integrity,screened_materials.csv finite numeric values,PASS,Checked 9 numeric columns.
+Numeric Integrity,electrochemical_evaluation.csv finite numeric values,PASS,Checked 25 numeric columns.
+Numeric Integrity,exact_structure_validation.csv finite numeric values,PASS,Checked 17 numeric columns.
+Numeric Integrity,final_candidate_ranking.csv finite numeric values,PASS,Checked 48 numeric columns.
+Numeric Integrity,week5_shortlist.csv finite numeric values,PASS,Checked 49 numeric columns.
+Numeric Integrity,week6_research_shortlist.csv finite numeric values,PASS,Checked 93 numeric columns.
+Numeric Integrity,week6_literature_validation.csv finite numeric values,PASS,Checked 62 numeric columns.
+Numeric Integrity,week6_synthesis_feasibility.csv finite numeric values,PASS,Checked 71 numeric columns.
+Numeric Integrity,week6_transport_evaluation.csv finite numeric values,PASS,Checked 82 numeric columns.
+Numeric Integrity,week6_resource_assessment.csv finite numeric values,PASS,Checked 87 numeric columns.
+Numeric Integrity,week6_provenance_validation.csv finite numeric values,PASS,Checked 53 numeric columns.
+Numeric Integrity,week6_final_ranking.csv finite numeric values,PASS,Checked 94 numeric columns.
+Numeric Integrity,week7_final_ranking.csv finite numeric values,PASS,Checked 633 numeric columns.
+Score Range,ranked_materials.csv: hull_score,PASS,"Range valid. Min=0.0000, Max=1.0000"
+Score Range,ranked_materials.csv: formation_score,PASS,"Range valid. Min=0.0000, Max=1.0000"
+Score Range,ranked_materials.csv: stability_score,PASS,"Range valid. Min=0.0000, Max=1.0000"
+Score Range,ranked_materials.csv: score,PASS,"Range valid. Min=0.0188, Max=0.9649"
+Score Range,screened_materials.csv: hull_score,PASS,"Range valid. Min=0.0000, Max=1.0000"
+Score Range,screened_materials.csv: formation_score,PASS,"Range valid. Min=0.0000, Max=1.0000"
+Score Range,screened_materials.csv: stability_score,PASS,"Range valid. Min=0.0000, Max=1.0000"
+Score Range,screened_materials.csv: score,PASS,"Range valid. Min=0.0188, Max=0.9649"
+Score Range,electrochemical_evaluation.csv: electrochemical_score,PASS,"Range valid. Min=33.8421, Max=100.0000"
+Score Range,electrochemical_evaluation.csv: electrochemical_score_raw,PASS,"Range valid. Min=33.8421, Max=100.0000"
+Score Range,electrochemical_evaluation.csv: voltage_score,PASS,"Range valid. Min=0.0000, Max=100.0000"
+Score Range,electrochemical_evaluation.csv: capacity_score,PASS,"Range valid. Min=4.9295, Max=100.0000"
+Score Range,electrochemical_evaluation.csv: energy_score,PASS,"Range valid. Min=3.1154, Max=100.0000"
+Score Range,electrochemical_evaluation.csv: volume_change_score,PASS,"Range valid. Min=100.0000, Max=100.0000"
+Score Range,electrochemical_evaluation.csv: stability_score,PASS,"Range valid. Min=11.6878, Max=100.0000"
+Score Range,electrochemical_evaluation.csv: voltage_steps_score,PASS,"Range valid. Min=50.0000, Max=100.0000"
+Score Range,exact_structure_validation.csv: previous_electrochemical_score,PASS,"Range valid. Min=33.8421, Max=100.0000"
+Score Range,exact_structure_validation.csv: exact_electrochemical_score,PASS,"Range valid. Min=37.7183, Max=99.5000"
+Score Range,exact_structure_validation.csv: score_delta_vs_formula_search,PASS,Signed comparison metric. Negative values are valid. Observed range: -27.0198 to 0.0000
+Score Range,final_candidate_ranking.csv: electrochemical_score,PASS,"Range valid. Min=33.8421, Max=100.0000"
+Score Range,final_candidate_ranking.csv: electrochemical_score_raw,PASS,"Range valid. Min=33.8421, Max=100.0000"
+Score Range,final_candidate_ranking.csv: voltage_score,PASS,"Range valid. Min=0.0000, Max=100.0000"
+Score Range,final_candidate_ranking.csv: capacity_score,PASS,"Range valid. Min=4.9295, Max=100.0000"
+Score Range,final_candidate_ranking.csv: energy_score,PASS,"Range valid. Min=3.1154, Max=100.0000"
+Score Range,final_candidate_ranking.csv: volume_change_score,PASS,"Range valid. Min=100.0000, Max=100.0000"
+Score Range,final_candidate_ranking.csv: stability_score,PASS,"Range valid. Min=11.6878, Max=100.0000"
+Score Range,final_candidate_ranking.csv: voltage_steps_score,PASS,"Range valid. Min=50.0000, Max=100.0000"
+Score Range,final_candidate_ranking.csv: score_minus_reference_median,PASS,Signed comparison metric. Negative values are valid. Observed range: -61.6638 to 4.4940
+Score Range,final_candidate_ranking.csv: previous_electrochemical_score,PASS,"Range valid. Min=33.8421, Max=100.0000"
+Score Range,final_candidate_ranking.csv: exact_electrochemical_score,PASS,"Range valid. Min=37.7183, Max=99.5000"
+Score Range,final_candidate_ranking.csv: score_delta_vs_formula_search,PASS,Signed comparison metric. Negative values are valid. Observed range: -27.0198 to 0.0000
+Score Range,final_candidate_ranking.csv: final_electrochemical_score,PASS,"Range valid. Min=33.8421, Max=100.0000"
+Score Range,final_candidate_ranking.csv: evidence_strength_score,PASS,"Range valid. Min=20.0000, Max=100.0000"
+Score Range,final_candidate_ranking.csv: final_selection_score,PASS,"Range valid. Min=43.5817, Max=93.8653"
+Score Range,final_candidate_ranking.csv: discovery_priority_score,PASS,"Range valid. Min=0.0000, Max=100.0000"
+Score Range,week5_shortlist.csv: electrochemical_score,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week5_shortlist.csv: electrochemical_score_raw,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week5_shortlist.csv: voltage_score,PASS,"Range valid. Min=59.4816, Max=100.0000"
+Score Range,week5_shortlist.csv: capacity_score,PASS,"Range valid. Min=77.5030, Max=100.0000"
+Score Range,week5_shortlist.csv: energy_score,PASS,"Range valid. Min=78.1753, Max=100.0000"
+Score Range,week5_shortlist.csv: volume_change_score,PASS,"Range valid. Min=100.0000, Max=100.0000"
+Score Range,week5_shortlist.csv: stability_score,PASS,"Range valid. Min=70.0150, Max=100.0000"
+Score Range,week5_shortlist.csv: voltage_steps_score,PASS,"Range valid. Min=50.0000, Max=100.0000"
+Score Range,week5_shortlist.csv: score_minus_reference_median,PASS,Signed comparison metric. Negative values are valid. Observed range: -9.4174 to 2.0071
+Score Range,week5_shortlist.csv: previous_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week5_shortlist.csv: exact_electrochemical_score,PASS,"Range valid. Min=84.2724, Max=96.7542"
+Score Range,week5_shortlist.csv: score_delta_vs_formula_search,PASS,Signed comparison metric. Negative values are valid. Observed range: -6.2876 to 0.0000
+Score Range,week5_shortlist.csv: final_electrochemical_score,PASS,"Range valid. Min=84.2724, Max=96.7542"
+Score Range,week5_shortlist.csv: evidence_strength_score,PASS,"Range valid. Min=100.0000, Max=100.0000"
+Score Range,week5_shortlist.csv: final_selection_score,PASS,"Range valid. Min=86.6310, Max=93.8653"
+Score Range,week6_research_shortlist.csv: electrochemical_score,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week6_research_shortlist.csv: electrochemical_score_raw,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week6_research_shortlist.csv: voltage_score,PASS,"Range valid. Min=92.2692, Max=100.0000"
+Score Range,week6_research_shortlist.csv: capacity_score,PASS,"Range valid. Min=77.5030, Max=100.0000"
+Score Range,week6_research_shortlist.csv: energy_score,PASS,"Range valid. Min=78.1753, Max=100.0000"
+Score Range,week6_research_shortlist.csv: volume_change_score,PASS,"Range valid. Min=100.0000, Max=100.0000"
+Score Range,week6_research_shortlist.csv: stability_score,PASS,"Range valid. Min=82.4952, Max=100.0000"
+Score Range,week6_research_shortlist.csv: voltage_steps_score,PASS,"Range valid. Min=60.0000, Max=100.0000"
+Score Range,week6_research_shortlist.csv: score_minus_reference_median,PASS,Signed comparison metric. Negative values are valid. Observed range: -9.4174 to 2.0071
+Score Range,week6_research_shortlist.csv: previous_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week6_research_shortlist.csv: exact_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=96.7542"
+Score Range,week6_research_shortlist.csv: score_delta_vs_formula_search,PASS,Signed comparison metric. Negative values are valid. Observed range: -0.7589 to 0.0000
+Score Range,week6_research_shortlist.csv: final_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=96.7542"
+Score Range,week6_research_shortlist.csv: evidence_strength_score,PASS,"Range valid. Min=100.0000, Max=100.0000"
+Score Range,week6_research_shortlist.csv: final_selection_score,PASS,"Range valid. Min=88.3733, Max=92.8473"
+Score Range,week6_research_shortlist.csv: provenance_evidence_score,PASS,"Range valid. Min=6.0000, Max=100.0000"
+Score Range,week6_research_shortlist.csv: literature_evidence_score,PASS,"Range valid. Min=0.0000, Max=0.0000"
+Score Range,week6_research_shortlist.csv: thermodynamic_score,PASS,"Range valid. Min=45.0000, Max=45.0000"
+Score Range,week6_research_shortlist.csv: provenance_support_score,PASS,"Range valid. Min=12.0000, Max=25.0000"
+Score Range,week6_research_shortlist.csv: literature_support_score,PASS,"Range valid. Min=0.0000, Max=0.0000"
+Score Range,week6_research_shortlist.csv: structural_complexity_score,PASS,"Range valid. Min=6.5000, Max=8.5000"
+Score Range,week6_research_shortlist.csv: synthesis_feasibility_score,PASS,"Range valid. Min=63.5000, Max=78.5000"
+Score Range,week6_research_shortlist.csv: electronic_accessibility_score,PASS,"Range valid. Min=55.0000, Max=98.0000"
+Score Range,week6_research_shortlist.csv: resource_weighted_risk,PASS,"Range valid. Min=51.1000, Max=55.0000"
+Score Range,week6_research_shortlist.csv: resource_practicality_score,PASS,"Range valid. Min=35.8000, Max=42.9000"
+Score Range,week6_research_shortlist.csv: highest_risk_weight,PASS,"Range valid. Min=65.0000, Max=70.0000"
+Score Range,week6_research_shortlist.csv: week6_electrochemical_score,PASS,"Range valid. Min=86.0900, Max=97.5100"
+Score Range,week6_research_shortlist.csv: week6_provenance_confidence,PASS,"Range valid. Min=55.0000, Max=100.0000"
+Score Range,week6_research_shortlist.csv: week6_li_network_score,PASS,"Range valid. Min=35.0000, Max=100.0000"
+Score Range,week6_research_shortlist.csv: week6_novelty_score,PASS,"Range valid. Min=70.0000, Max=70.0000"
+Score Range,week6_research_shortlist.csv: technical_merit_score,PASS,"Range valid. Min=72.9200, Max=78.3000"
+Score Range,week6_research_shortlist.csv: research_priority_score,PASS,"Range valid. Min=72.6300, Max=77.4700"
+Score Range,week6_literature_validation.csv: electrochemical_score,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week6_literature_validation.csv: electrochemical_score_raw,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week6_literature_validation.csv: voltage_score,PASS,"Range valid. Min=59.4816, Max=100.0000"
+Score Range,week6_literature_validation.csv: capacity_score,PASS,"Range valid. Min=77.5030, Max=100.0000"
+Score Range,week6_literature_validation.csv: energy_score,PASS,"Range valid. Min=78.1753, Max=100.0000"
+Score Range,week6_literature_validation.csv: volume_change_score,PASS,"Range valid. Min=100.0000, Max=100.0000"
+Score Range,week6_literature_validation.csv: stability_score,PASS,"Range valid. Min=70.0150, Max=100.0000"
+Score Range,week6_literature_validation.csv: voltage_steps_score,PASS,"Range valid. Min=50.0000, Max=100.0000"
+Score Range,week6_literature_validation.csv: score_minus_reference_median,PASS,Signed comparison metric. Negative values are valid. Observed range: -9.4174 to 2.0071
+Score Range,week6_literature_validation.csv: previous_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week6_literature_validation.csv: exact_electrochemical_score,PASS,"Range valid. Min=84.2724, Max=96.7542"
+Score Range,week6_literature_validation.csv: score_delta_vs_formula_search,PASS,Signed comparison metric. Negative values are valid. Observed range: -6.2876 to 0.0000
+Score Range,week6_literature_validation.csv: final_electrochemical_score,PASS,"Range valid. Min=84.2724, Max=96.7542"
+Score Range,week6_literature_validation.csv: evidence_strength_score,PASS,"Range valid. Min=100.0000, Max=100.0000"
+Score Range,week6_literature_validation.csv: final_selection_score,PASS,"Range valid. Min=86.6310, Max=93.8653"
+Score Range,week6_literature_validation.csv: provenance_evidence_score,PASS,"Range valid. Min=6.0000, Max=100.0000"
+Score Range,week6_literature_validation.csv: literature_evidence_score,PASS,"Range valid. Min=0.0000, Max=100.0000"
+Score Range,week6_synthesis_feasibility.csv: electrochemical_score,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week6_synthesis_feasibility.csv: electrochemical_score_raw,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week6_synthesis_feasibility.csv: voltage_score,PASS,"Range valid. Min=59.4816, Max=100.0000"
+Score Range,week6_synthesis_feasibility.csv: capacity_score,PASS,"Range valid. Min=77.5030, Max=100.0000"
+Score Range,week6_synthesis_feasibility.csv: energy_score,PASS,"Range valid. Min=78.1753, Max=100.0000"
+Score Range,week6_synthesis_feasibility.csv: volume_change_score,PASS,"Range valid. Min=100.0000, Max=100.0000"
+Score Range,week6_synthesis_feasibility.csv: stability_score,PASS,"Range valid. Min=70.0150, Max=100.0000"
+Score Range,week6_synthesis_feasibility.csv: voltage_steps_score,PASS,"Range valid. Min=50.0000, Max=100.0000"
+Score Range,week6_synthesis_feasibility.csv: score_minus_reference_median,PASS,Signed comparison metric. Negative values are valid. Observed range: -9.4174 to 2.0071
+Score Range,week6_synthesis_feasibility.csv: previous_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week6_synthesis_feasibility.csv: exact_electrochemical_score,PASS,"Range valid. Min=84.2724, Max=96.7542"
+Score Range,week6_synthesis_feasibility.csv: score_delta_vs_formula_search,PASS,Signed comparison metric. Negative values are valid. Observed range: -6.2876 to 0.0000
+Score Range,week6_synthesis_feasibility.csv: final_electrochemical_score,PASS,"Range valid. Min=84.2724, Max=96.7542"
+Score Range,week6_synthesis_feasibility.csv: evidence_strength_score,PASS,"Range valid. Min=100.0000, Max=100.0000"
+Score Range,week6_synthesis_feasibility.csv: final_selection_score,PASS,"Range valid. Min=86.6310, Max=93.8653"
+Score Range,week6_synthesis_feasibility.csv: provenance_evidence_score,PASS,"Range valid. Min=6.0000, Max=100.0000"
+Score Range,week6_synthesis_feasibility.csv: literature_evidence_score,PASS,"Range valid. Min=0.0000, Max=100.0000"
+Score Range,week6_synthesis_feasibility.csv: thermodynamic_score,PASS,"Range valid. Min=45.0000, Max=45.0000"
+Score Range,week6_synthesis_feasibility.csv: provenance_support_score,PASS,"Range valid. Min=12.0000, Max=25.0000"
+Score Range,week6_synthesis_feasibility.csv: literature_support_score,PASS,"Range valid. Min=0.0000, Max=20.0000"
+Score Range,week6_synthesis_feasibility.csv: structural_complexity_score,PASS,"Range valid. Min=6.5000, Max=9.5000"
+Score Range,week6_synthesis_feasibility.csv: synthesis_feasibility_score,PASS,"Range valid. Min=63.5000, Max=97.5000"
+Score Range,week6_transport_evaluation.csv: electrochemical_score,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week6_transport_evaluation.csv: electrochemical_score_raw,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week6_transport_evaluation.csv: voltage_score,PASS,"Range valid. Min=59.4816, Max=100.0000"
+Score Range,week6_transport_evaluation.csv: capacity_score,PASS,"Range valid. Min=77.5030, Max=100.0000"
+Score Range,week6_transport_evaluation.csv: energy_score,PASS,"Range valid. Min=78.1753, Max=100.0000"
+Score Range,week6_transport_evaluation.csv: volume_change_score,PASS,"Range valid. Min=100.0000, Max=100.0000"
+Score Range,week6_transport_evaluation.csv: stability_score,PASS,"Range valid. Min=70.0150, Max=100.0000"
+Score Range,week6_transport_evaluation.csv: voltage_steps_score,PASS,"Range valid. Min=50.0000, Max=100.0000"
+Score Range,week6_transport_evaluation.csv: score_minus_reference_median,PASS,Signed comparison metric. Negative values are valid. Observed range: -9.4174 to 2.0071
+Score Range,week6_transport_evaluation.csv: previous_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week6_transport_evaluation.csv: exact_electrochemical_score,PASS,"Range valid. Min=84.2724, Max=96.7542"
+Score Range,week6_transport_evaluation.csv: score_delta_vs_formula_search,PASS,Signed comparison metric. Negative values are valid. Observed range: -6.2876 to 0.0000
+Score Range,week6_transport_evaluation.csv: final_electrochemical_score,PASS,"Range valid. Min=84.2724, Max=96.7542"
+Score Range,week6_transport_evaluation.csv: evidence_strength_score,PASS,"Range valid. Min=100.0000, Max=100.0000"
+Score Range,week6_transport_evaluation.csv: final_selection_score,PASS,"Range valid. Min=86.6310, Max=93.8653"
+Score Range,week6_transport_evaluation.csv: provenance_evidence_score,PASS,"Range valid. Min=6.0000, Max=100.0000"
+Score Range,week6_transport_evaluation.csv: literature_evidence_score,PASS,"Range valid. Min=0.0000, Max=100.0000"
+Score Range,week6_transport_evaluation.csv: thermodynamic_score,PASS,"Range valid. Min=45.0000, Max=45.0000"
+Score Range,week6_transport_evaluation.csv: provenance_support_score,PASS,"Range valid. Min=12.0000, Max=25.0000"
+Score Range,week6_transport_evaluation.csv: literature_support_score,PASS,"Range valid. Min=0.0000, Max=20.0000"
+Score Range,week6_transport_evaluation.csv: structural_complexity_score,PASS,"Range valid. Min=6.5000, Max=9.5000"
+Score Range,week6_transport_evaluation.csv: synthesis_feasibility_score,PASS,"Range valid. Min=63.5000, Max=97.5000"
+Score Range,week6_transport_evaluation.csv: electronic_accessibility_score,PASS,"Range valid. Min=55.0000, Max=98.0000"
+Score Range,week6_resource_assessment.csv: electrochemical_score,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week6_resource_assessment.csv: electrochemical_score_raw,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week6_resource_assessment.csv: voltage_score,PASS,"Range valid. Min=59.4816, Max=100.0000"
+Score Range,week6_resource_assessment.csv: capacity_score,PASS,"Range valid. Min=77.5030, Max=100.0000"
+Score Range,week6_resource_assessment.csv: energy_score,PASS,"Range valid. Min=78.1753, Max=100.0000"
+Score Range,week6_resource_assessment.csv: volume_change_score,PASS,"Range valid. Min=100.0000, Max=100.0000"
+Score Range,week6_resource_assessment.csv: stability_score,PASS,"Range valid. Min=70.0150, Max=100.0000"
+Score Range,week6_resource_assessment.csv: voltage_steps_score,PASS,"Range valid. Min=50.0000, Max=100.0000"
+Score Range,week6_resource_assessment.csv: score_minus_reference_median,PASS,Signed comparison metric. Negative values are valid. Observed range: -9.4174 to 2.0071
+Score Range,week6_resource_assessment.csv: previous_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week6_resource_assessment.csv: exact_electrochemical_score,PASS,"Range valid. Min=84.2724, Max=96.7542"
+Score Range,week6_resource_assessment.csv: score_delta_vs_formula_search,PASS,Signed comparison metric. Negative values are valid. Observed range: -6.2876 to 0.0000
+Score Range,week6_resource_assessment.csv: final_electrochemical_score,PASS,"Range valid. Min=84.2724, Max=96.7542"
+Score Range,week6_resource_assessment.csv: evidence_strength_score,PASS,"Range valid. Min=100.0000, Max=100.0000"
+Score Range,week6_resource_assessment.csv: final_selection_score,PASS,"Range valid. Min=86.6310, Max=93.8653"
+Score Range,week6_resource_assessment.csv: provenance_evidence_score,PASS,"Range valid. Min=6.0000, Max=100.0000"
+Score Range,week6_resource_assessment.csv: literature_evidence_score,PASS,"Range valid. Min=0.0000, Max=100.0000"
+Score Range,week6_resource_assessment.csv: thermodynamic_score,PASS,"Range valid. Min=45.0000, Max=45.0000"
+Score Range,week6_resource_assessment.csv: provenance_support_score,PASS,"Range valid. Min=12.0000, Max=25.0000"
+Score Range,week6_resource_assessment.csv: literature_support_score,PASS,"Range valid. Min=0.0000, Max=20.0000"
+Score Range,week6_resource_assessment.csv: structural_complexity_score,PASS,"Range valid. Min=6.5000, Max=9.5000"
+Score Range,week6_resource_assessment.csv: synthesis_feasibility_score,PASS,"Range valid. Min=63.5000, Max=97.5000"
+Score Range,week6_resource_assessment.csv: electronic_accessibility_score,PASS,"Range valid. Min=55.0000, Max=98.0000"
+Score Range,week6_resource_assessment.csv: resource_weighted_risk,PASS,"Range valid. Min=46.9000, Max=55.0000"
+Score Range,week6_resource_assessment.csv: resource_practicality_score,PASS,"Range valid. Min=31.8000, Max=47.1000"
+Score Range,week6_resource_assessment.csv: highest_risk_weight,PASS,"Range valid. Min=65.0000, Max=70.0000"
+Score Range,week6_provenance_validation.csv: electrochemical_score,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week6_provenance_validation.csv: electrochemical_score_raw,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week6_provenance_validation.csv: voltage_score,PASS,"Range valid. Min=59.4816, Max=100.0000"
+Score Range,week6_provenance_validation.csv: capacity_score,PASS,"Range valid. Min=77.5030, Max=100.0000"
+Score Range,week6_provenance_validation.csv: energy_score,PASS,"Range valid. Min=78.1753, Max=100.0000"
+Score Range,week6_provenance_validation.csv: volume_change_score,PASS,"Range valid. Min=100.0000, Max=100.0000"
+Score Range,week6_provenance_validation.csv: stability_score,PASS,"Range valid. Min=70.0150, Max=100.0000"
+Score Range,week6_provenance_validation.csv: voltage_steps_score,PASS,"Range valid. Min=50.0000, Max=100.0000"
+Score Range,week6_provenance_validation.csv: score_minus_reference_median,PASS,Signed comparison metric. Negative values are valid. Observed range: -9.4174 to 2.0071
+Score Range,week6_provenance_validation.csv: previous_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week6_provenance_validation.csv: exact_electrochemical_score,PASS,"Range valid. Min=84.2724, Max=96.7542"
+Score Range,week6_provenance_validation.csv: score_delta_vs_formula_search,PASS,Signed comparison metric. Negative values are valid. Observed range: -6.2876 to 0.0000
+Score Range,week6_provenance_validation.csv: final_electrochemical_score,PASS,"Range valid. Min=84.2724, Max=96.7542"
+Score Range,week6_provenance_validation.csv: evidence_strength_score,PASS,"Range valid. Min=100.0000, Max=100.0000"
+Score Range,week6_provenance_validation.csv: final_selection_score,PASS,"Range valid. Min=86.6310, Max=93.8653"
+Score Range,week6_provenance_validation.csv: provenance_evidence_score,PASS,"Range valid. Min=6.0000, Max=100.0000"
+Score Range,week6_final_ranking.csv: electrochemical_score,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week6_final_ranking.csv: electrochemical_score_raw,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week6_final_ranking.csv: voltage_score,PASS,"Range valid. Min=59.4816, Max=100.0000"
+Score Range,week6_final_ranking.csv: capacity_score,PASS,"Range valid. Min=77.5030, Max=100.0000"
+Score Range,week6_final_ranking.csv: energy_score,PASS,"Range valid. Min=78.1753, Max=100.0000"
+Score Range,week6_final_ranking.csv: volume_change_score,PASS,"Range valid. Min=100.0000, Max=100.0000"
+Score Range,week6_final_ranking.csv: stability_score,PASS,"Range valid. Min=70.0150, Max=100.0000"
+Score Range,week6_final_ranking.csv: voltage_steps_score,PASS,"Range valid. Min=50.0000, Max=100.0000"
+Score Range,week6_final_ranking.csv: score_minus_reference_median,PASS,Signed comparison metric. Negative values are valid. Observed range: -9.4174 to 2.0071
+Score Range,week6_final_ranking.csv: previous_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week6_final_ranking.csv: exact_electrochemical_score,PASS,"Range valid. Min=84.2724, Max=96.7542"
+Score Range,week6_final_ranking.csv: score_delta_vs_formula_search,PASS,Signed comparison metric. Negative values are valid. Observed range: -6.2876 to 0.0000
+Score Range,week6_final_ranking.csv: final_electrochemical_score,PASS,"Range valid. Min=84.2724, Max=96.7542"
+Score Range,week6_final_ranking.csv: evidence_strength_score,PASS,"Range valid. Min=100.0000, Max=100.0000"
+Score Range,week6_final_ranking.csv: final_selection_score,PASS,"Range valid. Min=86.6310, Max=93.8653"
+Score Range,week6_final_ranking.csv: provenance_evidence_score,PASS,"Range valid. Min=6.0000, Max=100.0000"
+Score Range,week6_final_ranking.csv: literature_evidence_score,PASS,"Range valid. Min=0.0000, Max=100.0000"
+Score Range,week6_final_ranking.csv: thermodynamic_score,PASS,"Range valid. Min=45.0000, Max=45.0000"
+Score Range,week6_final_ranking.csv: provenance_support_score,PASS,"Range valid. Min=12.0000, Max=25.0000"
+Score Range,week6_final_ranking.csv: literature_support_score,PASS,"Range valid. Min=0.0000, Max=20.0000"
+Score Range,week6_final_ranking.csv: structural_complexity_score,PASS,"Range valid. Min=6.5000, Max=9.5000"
+Score Range,week6_final_ranking.csv: synthesis_feasibility_score,PASS,"Range valid. Min=63.5000, Max=97.5000"
+Score Range,week6_final_ranking.csv: electronic_accessibility_score,PASS,"Range valid. Min=55.0000, Max=98.0000"
+Score Range,week6_final_ranking.csv: resource_weighted_risk,PASS,"Range valid. Min=46.9000, Max=55.0000"
+Score Range,week6_final_ranking.csv: resource_practicality_score,PASS,"Range valid. Min=31.8000, Max=47.1000"
+Score Range,week6_final_ranking.csv: highest_risk_weight,PASS,"Range valid. Min=65.0000, Max=70.0000"
+Score Range,week6_final_ranking.csv: week6_electrochemical_score,PASS,"Range valid. Min=86.0900, Max=97.5100"
+Score Range,week6_final_ranking.csv: week6_provenance_confidence,PASS,"Range valid. Min=55.0000, Max=100.0000"
+Score Range,week6_final_ranking.csv: week6_li_network_score,PASS,"Range valid. Min=35.0000, Max=100.0000"
+Score Range,week6_final_ranking.csv: week6_novelty_score,PASS,"Range valid. Min=0.0000, Max=70.0000"
+Score Range,week6_final_ranking.csv: technical_merit_score,PASS,"Range valid. Min=65.2600, Max=83.3800"
+Score Range,week6_final_ranking.csv: research_priority_score,PASS,"Range valid. Min=64.5800, Max=77.4700"
+Score Range,week7_final_ranking.csv: risk_adjusted_rank,PASS,"Range valid. Min=1.0000, Max=10.0000"
+Score Range,week7_final_ranking.csv: electrochemical_score,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week7_final_ranking.csv: electrochemical_score_raw,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week7_final_ranking.csv: voltage_score,PASS,"Range valid. Min=76.4297, Max=100.0000"
+Score Range,week7_final_ranking.csv: capacity_score,PASS,"Range valid. Min=77.5030, Max=100.0000"
+Score Range,week7_final_ranking.csv: energy_score,PASS,"Range valid. Min=78.1753, Max=100.0000"
+Score Range,week7_final_ranking.csv: volume_change_score,PASS,"Range valid. Min=100.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: stability_score,PASS,"Range valid. Min=70.0150, Max=100.0000"
+Score Range,week7_final_ranking.csv: voltage_steps_score,PASS,"Range valid. Min=50.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: score_minus_reference_median,PASS,Signed comparison metric. Negative values are valid. Observed range: -9.4174 to 2.0071
+Score Range,week7_final_ranking.csv: previous_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week7_final_ranking.csv: exact_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=96.7542"
+Score Range,week7_final_ranking.csv: score_delta_vs_formula_search,PASS,Signed comparison metric. Negative values are valid. Observed range: -6.2876 to 0.0000
+Score Range,week7_final_ranking.csv: final_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=96.7542"
+Score Range,week7_final_ranking.csv: evidence_strength_score,PASS,"Range valid. Min=100.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: final_selection_score,PASS,"Range valid. Min=87.1367, Max=92.8473"
+Score Range,week7_final_ranking.csv: discovery_priority_score,PASS,"Range valid. Min=49.6000, Max=77.9000"
+Score Range,week7_final_ranking.csv: provenance_evidence_score,PASS,"Range valid. Min=6.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: literature_evidence_score,PASS,"Range valid. Min=0.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: thermodynamic_score,PASS,"Range valid. Min=45.0000, Max=45.0000"
+Score Range,week7_final_ranking.csv: provenance_support_score,PASS,"Range valid. Min=12.0000, Max=25.0000"
+Score Range,week7_final_ranking.csv: literature_support_score,PASS,"Range valid. Min=0.0000, Max=20.0000"
+Score Range,week7_final_ranking.csv: structural_complexity_score,PASS,"Range valid. Min=6.5000, Max=9.5000"
+Score Range,week7_final_ranking.csv: synthesis_feasibility_score,PASS,"Range valid. Min=63.5000, Max=97.5000"
+Score Range,week7_final_ranking.csv: electronic_accessibility_score,PASS,"Range valid. Min=55.0000, Max=98.0000"
+Score Range,week7_final_ranking.csv: resource_weighted_risk,PASS,"Range valid. Min=51.1000, Max=55.0000"
+Score Range,week7_final_ranking.csv: resource_practicality_score,PASS,"Range valid. Min=35.7000, Max=42.9000"
+Score Range,week7_final_ranking.csv: highest_risk_weight,PASS,"Range valid. Min=65.0000, Max=70.0000"
+Score Range,week7_final_ranking.csv: week6_electrochemical_score,PASS,"Range valid. Min=86.0900, Max=97.5100"
+Score Range,week7_final_ranking.csv: week6_provenance_confidence,PASS,"Range valid. Min=55.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_li_network_score,PASS,"Range valid. Min=35.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_novelty_score,PASS,"Range valid. Min=0.0000, Max=70.0000"
+Score Range,week7_final_ranking.csv: technical_merit_score,PASS,"Range valid. Min=69.1500, Max=83.3800"
+Score Range,week7_final_ranking.csv: research_priority_score,PASS,"Range valid. Min=69.2400, Max=77.4700"
+Score Range,week7_final_ranking.csv: structure_score,PASS,"Range valid. Min=62.0000, Max=88.0000"
+Score Range,week7_final_ranking.csv: redox_score,PASS,"Range valid. Min=58.0000, Max=93.0000"
+Score Range,week7_final_ranking.csv: performance_score,PASS,"Range valid. Min=24.8000, Max=76.2000"
+Score Range,week7_final_ranking.csv: week6_final_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week7_final_ranking.csv: week6_final_electrochemical_score_raw,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week7_final_ranking.csv: week6_final_voltage_score,PASS,"Range valid. Min=76.4297, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_final_capacity_score,PASS,"Range valid. Min=77.5030, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_final_energy_score,PASS,"Range valid. Min=78.1753, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_final_volume_change_score,PASS,"Range valid. Min=100.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_final_stability_score,PASS,"Range valid. Min=70.0150, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_final_voltage_steps_score,PASS,"Range valid. Min=50.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_final_score_minus_reference_median,PASS,Signed comparison metric. Negative values are valid. Observed range: -9.4174 to 2.0071
+Score Range,week7_final_ranking.csv: week6_final_previous_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week7_final_ranking.csv: week6_final_exact_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=96.7542"
+Score Range,week7_final_ranking.csv: week6_final_score_delta_vs_formula_search,PASS,Signed comparison metric. Negative values are valid. Observed range: -6.2876 to 0.0000
+Score Range,week7_final_ranking.csv: week6_final_final_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=96.7542"
+Score Range,week7_final_ranking.csv: week6_final_evidence_strength_score,PASS,"Range valid. Min=100.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_final_final_selection_score,PASS,"Range valid. Min=87.1367, Max=92.8473"
+Score Range,week7_final_ranking.csv: week6_final_provenance_evidence_score,PASS,"Range valid. Min=6.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_final_literature_evidence_score,PASS,"Range valid. Min=0.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_final_thermodynamic_score,PASS,"Range valid. Min=45.0000, Max=45.0000"
+Score Range,week7_final_ranking.csv: week6_final_provenance_support_score,PASS,"Range valid. Min=12.0000, Max=25.0000"
+Score Range,week7_final_ranking.csv: week6_final_literature_support_score,PASS,"Range valid. Min=0.0000, Max=20.0000"
+Score Range,week7_final_ranking.csv: week6_final_structural_complexity_score,PASS,"Range valid. Min=6.5000, Max=9.5000"
+Score Range,week7_final_ranking.csv: week6_final_synthesis_feasibility_score,PASS,"Range valid. Min=63.5000, Max=97.5000"
+Score Range,week7_final_ranking.csv: week6_final_electronic_accessibility_score,PASS,"Range valid. Min=55.0000, Max=98.0000"
+Score Range,week7_final_ranking.csv: week6_final_resource_weighted_risk,PASS,"Range valid. Min=51.1000, Max=55.0000"
+Score Range,week7_final_ranking.csv: week6_final_resource_practicality_score,PASS,"Range valid. Min=35.7000, Max=42.9000"
+Score Range,week7_final_ranking.csv: week6_final_highest_risk_weight,PASS,"Range valid. Min=65.0000, Max=70.0000"
+Score Range,week7_final_ranking.csv: week6_final_week6_electrochemical_score,PASS,"Range valid. Min=86.0900, Max=97.5100"
+Score Range,week7_final_ranking.csv: week6_final_week6_provenance_confidence,PASS,"Range valid. Min=55.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_final_week6_li_network_score,PASS,"Range valid. Min=35.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_final_week6_novelty_score,PASS,"Range valid. Min=0.0000, Max=70.0000"
+Score Range,week7_final_ranking.csv: week6_final_technical_merit_score,PASS,"Range valid. Min=69.1500, Max=83.3800"
+Score Range,week7_final_ranking.csv: week6_final_research_priority_score,PASS,"Range valid. Min=69.2400, Max=77.4700"
+Score Range,week7_final_ranking.csv: week6_literature_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week7_final_ranking.csv: week6_literature_electrochemical_score_raw,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week7_final_ranking.csv: week6_literature_voltage_score,PASS,"Range valid. Min=76.4297, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_literature_capacity_score,PASS,"Range valid. Min=77.5030, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_literature_energy_score,PASS,"Range valid. Min=78.1753, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_literature_volume_change_score,PASS,"Range valid. Min=100.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_literature_stability_score,PASS,"Range valid. Min=70.0150, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_literature_voltage_steps_score,PASS,"Range valid. Min=50.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_literature_score_minus_reference_median,PASS,Signed comparison metric. Negative values are valid. Observed range: -9.4174 to 2.0071
+Score Range,week7_final_ranking.csv: week6_literature_previous_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week7_final_ranking.csv: week6_literature_exact_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=96.7542"
+Score Range,week7_final_ranking.csv: week6_literature_score_delta_vs_formula_search,PASS,Signed comparison metric. Negative values are valid. Observed range: -6.2876 to 0.0000
+Score Range,week7_final_ranking.csv: week6_literature_final_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=96.7542"
+Score Range,week7_final_ranking.csv: week6_literature_evidence_strength_score,PASS,"Range valid. Min=100.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_literature_final_selection_score,PASS,"Range valid. Min=87.1367, Max=92.8473"
+Score Range,week7_final_ranking.csv: week6_literature_provenance_evidence_score,PASS,"Range valid. Min=6.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_literature_literature_evidence_score,PASS,"Range valid. Min=0.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_synthesis_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week7_final_ranking.csv: week6_synthesis_electrochemical_score_raw,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week7_final_ranking.csv: week6_synthesis_voltage_score,PASS,"Range valid. Min=76.4297, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_synthesis_capacity_score,PASS,"Range valid. Min=77.5030, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_synthesis_energy_score,PASS,"Range valid. Min=78.1753, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_synthesis_volume_change_score,PASS,"Range valid. Min=100.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_synthesis_stability_score,PASS,"Range valid. Min=70.0150, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_synthesis_voltage_steps_score,PASS,"Range valid. Min=50.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_synthesis_score_minus_reference_median,PASS,Signed comparison metric. Negative values are valid. Observed range: -9.4174 to 2.0071
+Score Range,week7_final_ranking.csv: week6_synthesis_previous_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week7_final_ranking.csv: week6_synthesis_exact_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=96.7542"
+Score Range,week7_final_ranking.csv: week6_synthesis_score_delta_vs_formula_search,PASS,Signed comparison metric. Negative values are valid. Observed range: -6.2876 to 0.0000
+Score Range,week7_final_ranking.csv: week6_synthesis_final_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=96.7542"
+Score Range,week7_final_ranking.csv: week6_synthesis_evidence_strength_score,PASS,"Range valid. Min=100.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_synthesis_final_selection_score,PASS,"Range valid. Min=87.1367, Max=92.8473"
+Score Range,week7_final_ranking.csv: week6_synthesis_provenance_evidence_score,PASS,"Range valid. Min=6.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_synthesis_literature_evidence_score,PASS,"Range valid. Min=0.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_synthesis_thermodynamic_score,PASS,"Range valid. Min=45.0000, Max=45.0000"
+Score Range,week7_final_ranking.csv: week6_synthesis_provenance_support_score,PASS,"Range valid. Min=12.0000, Max=25.0000"
+Score Range,week7_final_ranking.csv: week6_synthesis_literature_support_score,PASS,"Range valid. Min=0.0000, Max=20.0000"
+Score Range,week7_final_ranking.csv: week6_synthesis_structural_complexity_score,PASS,"Range valid. Min=6.5000, Max=9.5000"
+Score Range,week7_final_ranking.csv: week6_synthesis_synthesis_feasibility_score,PASS,"Range valid. Min=63.5000, Max=97.5000"
+Score Range,week7_final_ranking.csv: week6_resource_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week7_final_ranking.csv: week6_resource_electrochemical_score_raw,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week7_final_ranking.csv: week6_resource_voltage_score,PASS,"Range valid. Min=76.4297, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_resource_capacity_score,PASS,"Range valid. Min=77.5030, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_resource_energy_score,PASS,"Range valid. Min=78.1753, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_resource_volume_change_score,PASS,"Range valid. Min=100.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_resource_stability_score,PASS,"Range valid. Min=70.0150, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_resource_voltage_steps_score,PASS,"Range valid. Min=50.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_resource_score_minus_reference_median,PASS,Signed comparison metric. Negative values are valid. Observed range: -9.4174 to 2.0071
+Score Range,week7_final_ranking.csv: week6_resource_previous_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week7_final_ranking.csv: week6_resource_exact_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=96.7542"
+Score Range,week7_final_ranking.csv: week6_resource_score_delta_vs_formula_search,PASS,Signed comparison metric. Negative values are valid. Observed range: -6.2876 to 0.0000
+Score Range,week7_final_ranking.csv: week6_resource_final_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=96.7542"
+Score Range,week7_final_ranking.csv: week6_resource_evidence_strength_score,PASS,"Range valid. Min=100.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_resource_final_selection_score,PASS,"Range valid. Min=87.1367, Max=92.8473"
+Score Range,week7_final_ranking.csv: week6_resource_provenance_evidence_score,PASS,"Range valid. Min=6.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_resource_literature_evidence_score,PASS,"Range valid. Min=0.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_resource_thermodynamic_score,PASS,"Range valid. Min=45.0000, Max=45.0000"
+Score Range,week7_final_ranking.csv: week6_resource_provenance_support_score,PASS,"Range valid. Min=12.0000, Max=25.0000"
+Score Range,week7_final_ranking.csv: week6_resource_literature_support_score,PASS,"Range valid. Min=0.0000, Max=20.0000"
+Score Range,week7_final_ranking.csv: week6_resource_structural_complexity_score,PASS,"Range valid. Min=6.5000, Max=9.5000"
+Score Range,week7_final_ranking.csv: week6_resource_synthesis_feasibility_score,PASS,"Range valid. Min=63.5000, Max=97.5000"
+Score Range,week7_final_ranking.csv: week6_resource_electronic_accessibility_score,PASS,"Range valid. Min=55.0000, Max=98.0000"
+Score Range,week7_final_ranking.csv: week6_resource_resource_weighted_risk,PASS,"Range valid. Min=51.1000, Max=55.0000"
+Score Range,week7_final_ranking.csv: week6_resource_resource_practicality_score,PASS,"Range valid. Min=35.7000, Max=42.9000"
+Score Range,week7_final_ranking.csv: week6_resource_highest_risk_weight,PASS,"Range valid. Min=65.0000, Max=70.0000"
+Score Range,week7_final_ranking.csv: week6_transport_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week7_final_ranking.csv: week6_transport_electrochemical_score_raw,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week7_final_ranking.csv: week6_transport_voltage_score,PASS,"Range valid. Min=76.4297, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_transport_capacity_score,PASS,"Range valid. Min=77.5030, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_transport_energy_score,PASS,"Range valid. Min=78.1753, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_transport_volume_change_score,PASS,"Range valid. Min=100.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_transport_stability_score,PASS,"Range valid. Min=70.0150, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_transport_voltage_steps_score,PASS,"Range valid. Min=50.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_transport_score_minus_reference_median,PASS,Signed comparison metric. Negative values are valid. Observed range: -9.4174 to 2.0071
+Score Range,week7_final_ranking.csv: week6_transport_previous_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week7_final_ranking.csv: week6_transport_exact_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=96.7542"
+Score Range,week7_final_ranking.csv: week6_transport_score_delta_vs_formula_search,PASS,Signed comparison metric. Negative values are valid. Observed range: -6.2876 to 0.0000
+Score Range,week7_final_ranking.csv: week6_transport_final_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=96.7542"
+Score Range,week7_final_ranking.csv: week6_transport_evidence_strength_score,PASS,"Range valid. Min=100.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_transport_final_selection_score,PASS,"Range valid. Min=87.1367, Max=92.8473"
+Score Range,week7_final_ranking.csv: week6_transport_provenance_evidence_score,PASS,"Range valid. Min=6.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_transport_literature_evidence_score,PASS,"Range valid. Min=0.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_transport_thermodynamic_score,PASS,"Range valid. Min=45.0000, Max=45.0000"
+Score Range,week7_final_ranking.csv: week6_transport_provenance_support_score,PASS,"Range valid. Min=12.0000, Max=25.0000"
+Score Range,week7_final_ranking.csv: week6_transport_literature_support_score,PASS,"Range valid. Min=0.0000, Max=20.0000"
+Score Range,week7_final_ranking.csv: week6_transport_structural_complexity_score,PASS,"Range valid. Min=6.5000, Max=9.5000"
+Score Range,week7_final_ranking.csv: week6_transport_synthesis_feasibility_score,PASS,"Range valid. Min=63.5000, Max=97.5000"
+Score Range,week7_final_ranking.csv: week6_transport_electronic_accessibility_score,PASS,"Range valid. Min=55.0000, Max=98.0000"
+Score Range,week7_final_ranking.csv: week6_provenance_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week7_final_ranking.csv: week6_provenance_electrochemical_score_raw,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week7_final_ranking.csv: week6_provenance_voltage_score,PASS,"Range valid. Min=76.4297, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_provenance_capacity_score,PASS,"Range valid. Min=77.5030, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_provenance_energy_score,PASS,"Range valid. Min=78.1753, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_provenance_volume_change_score,PASS,"Range valid. Min=100.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_provenance_stability_score,PASS,"Range valid. Min=70.0150, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_provenance_voltage_steps_score,PASS,"Range valid. Min=50.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_provenance_score_minus_reference_median,PASS,Signed comparison metric. Negative values are valid. Observed range: -9.4174 to 2.0071
+Score Range,week7_final_ranking.csv: week6_provenance_previous_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=97.5131"
+Score Range,week7_final_ranking.csv: week6_provenance_exact_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=96.7542"
+Score Range,week7_final_ranking.csv: week6_provenance_score_delta_vs_formula_search,PASS,Signed comparison metric. Negative values are valid. Observed range: -6.2876 to 0.0000
+Score Range,week7_final_ranking.csv: week6_provenance_final_electrochemical_score,PASS,"Range valid. Min=86.0885, Max=96.7542"
+Score Range,week7_final_ranking.csv: week6_provenance_evidence_strength_score,PASS,"Range valid. Min=100.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: week6_provenance_final_selection_score,PASS,"Range valid. Min=87.1367, Max=92.8473"
+Score Range,week7_final_ranking.csv: week6_provenance_provenance_evidence_score,PASS,"Range valid. Min=6.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: structural_risk_score,PASS,"Range valid. Min=0.0000, Max=8.0000"
+Score Range,week7_final_ranking.csv: redox_risk_score,PASS,"Range valid. Min=0.0000, Max=25.0000"
+Score Range,week7_final_ranking.csv: performance_risk_score,PASS,"Range valid. Min=2.0000, Max=20.0000"
+Score Range,week7_final_ranking.csv: element_resource_risk_score,PASS,"Range valid. Min=4.0000, Max=7.0000"
+Score Range,week7_final_ranking.csv: evidence_risk_score,PASS,"Range valid. Min=2.0000, Max=2.0000"
+Score Range,week7_final_ranking.csv: total_risk_score,PASS,"Range valid. Min=8.0000, Max=54.0000"
+Score Range,week7_final_ranking.csv: risk_adjusted_score,PASS,"Range valid. Min=17.7000, Max=77.4000"
+Score Range,week7_final_ranking.csv: comparison_risk_quality_component,PASS,"Range valid. Min=46.0000, Max=92.0000"
+Score Range,week7_final_ranking.csv: evidence_provenance_score,PASS,"Range valid. Min=6.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: evidence_literature_score,PASS,"Range valid. Min=0.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: evidence_synthesis_score,PASS,"Range valid. Min=63.5000, Max=97.5000"
+Score Range,week7_final_ranking.csv: evidence_transport_score,PASS,"Range valid. Min=55.0000, Max=98.0000"
+Score Range,week7_final_ranking.csv: evidence_resource_score,PASS,"Range valid. Min=35.7000, Max=42.9000"
+Score Range,week7_final_ranking.csv: evidence_week6_quality_score,PASS,"Range valid. Min=69.2000, Max=77.5000"
+Score Range,week7_final_ranking.csv: comparison_evidence_score,PASS,"Range valid. Min=33.6000, Max=86.0000"
+Score Range,week7_final_ranking.csv: comparison_confidence_score,PASS,"Range valid. Min=72.0000, Max=92.5000"
+Score Range,week7_final_ranking.csv: comparison_score,PASS,"Range valid. Min=51.8000, Max=82.9000"
+Score Range,week7_final_ranking.csv: research_potential_score,PASS,"Range valid. Min=50.0000, Max=84.4000"
+Score Range,week7_final_ranking.csv: evidence_confidence_score,PASS,"Range valid. Min=37.9000, Max=87.9000"
+Score Range,week7_final_ranking.csv: confidence_literature_component,PASS,"Range valid. Min=0.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: confidence_provenance_component,PASS,"Range valid. Min=6.0000, Max=100.0000"
+Score Range,week7_final_ranking.csv: confidence_synthesis_component,PASS,"Range valid. Min=63.5000, Max=97.5000"
+Score Range,week7_final_ranking.csv: confidence_transport_component,PASS,"Range valid. Min=55.0000, Max=98.0000"
+Score Range,week7_final_ranking.csv: confidence_resource_component,PASS,"Range valid. Min=35.7000, Max=42.9000"
+Score Range,week7_final_ranking.csv: confidence_week6_quality_component,PASS,"Range valid. Min=69.2000, Max=77.5000"
+Score Range,week7_final_ranking.csv: confidence_week7_component,PASS,"Range valid. Min=72.0000, Max=92.5000"
+Score Range,week7_final_ranking.csv: novelty_score,PASS,"Range valid. Min=0.0000, Max=70.0000"
+Score Range,week7_final_ranking.csv: evidence_supported_research_score,PASS,"Range valid. Min=40.7000, Max=79.5000"
+Score Range,week7_final_ranking.csv: validation_priority_score,PASS,"Range valid. Min=4.0000, Max=46.9000"
+Score Range,week7_final_ranking.csv: week7_final_score,PASS,"Range valid. Min=49.2000, Max=80.2000"
+Ranking,final_candidate_ranking.csv final_selection_rank ranking,PASS,117 ranked rows form a complete unique sequence from 1 to 117. 62 rows are intentionally outside this ranking track.
+Ranking,final_candidate_ranking.csv discovery_review_rank ranking,PASS,56 ranked rows form a complete unique sequence from 1 to 56. 123 rows are intentionally outside this ranking track.
+Ranking,Week 5 mutually exclusive ranking tracks,PASS,No candidate appears in both Week 5 ranking tracks.
+Ranking,Week 5 candidate role coverage,PASS,All 179 materials belong to a recognized Week 5 role.
+Ranking,Week 5 ranking-track population,PASS,Final selection: 117; discovery review: 56; benchmark controls: 6; total: 179.
+Ranking,week7_final_ranking.csv complete ranking,PASS,Ranks form a complete unique sequence from 1 to 10.
+Ranking,week7_final_ranking.csv week7_final_score agrees with ranking,PASS,week7_final_score decreases consistently with week7_final_rank.
+Traceability,Ranked materials trace to raw candidate dataset,PASS,All 4717 candidates in ranked_materials.csv trace to materials.csv.
+Traceability,Screened materials trace to thermodynamic ranking,PASS,All 4717 candidates in screened_materials.csv trace to ranked_materials.csv.
+Traceability,Electrochemical candidates trace to screened materials,PASS,All 179 candidates in electrochemical_evaluation.csv trace to screened_materials.csv.
+Traceability,Week 5 shortlist traces to Week 5 final candidate ranking,PASS,All 15 candidates in week5_shortlist.csv trace to final_candidate_ranking.csv.
+Traceability,Week 6 final ranking traces to Week 6 validated candidate population,PASS,All 15 candidates in week6_final_ranking.csv trace to week6_resource_assessment.csv.
+Traceability,Week 6 research shortlist traces to Week 6 final ranking,PASS,All 5 candidates in week6_research_shortlist.csv trace to week6_final_ranking.csv.
+Traceability,Week 7 final ranking traces to Week 6 final ranking,PASS,All 10 candidates in week7_final_ranking.csv trace to week6_final_ranking.csv.
+Week 7 Final,Required final recommendation columns,PASS,All required Week 7 recommendation columns are present.
+Week 7 Final,Final recommendation roles,PASS,"6 recommendation categories detected: EXPLORATORY, HIGH_VALUE_VALIDATION_TARGET, PRIMARY_DISCOVERY_RECOMMENDATION, RESEARCH_SHORTLIST, SECONDARY_DISCOVERY_RECOMMENDATION, VALIDATED_REFERENCE"
